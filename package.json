@@ -1,0 +1,19 @@
+{
+  "name": "Vocab",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "react": "^15.0.2",
+    "react-native": "^0.26.1",
+    "react-native-admob": "^1.0.0",
+    "react-native-gifted-listview": "0.0.15",
+    "react-native-navbar": "^1.5.0",
+    "react-native-router-flux": "^3.26.1",
+    "react-native-share": "^1.0.10",
+    "react-native-simple-store": "^1.0.1",
+    "react-native-vector-icons": "^2.0.2"
+  }
+}
