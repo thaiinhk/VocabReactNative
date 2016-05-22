@@ -84,6 +84,7 @@ export default class SettingsView extends Component {
       return (
         <Icon.ToolbarAndroid
           navIconName="arrow-back"
+          onIconClicked={Actions.pop}
           style={styles.toolbar}
           title={this.props.title}
           titleColor="white"
@@ -157,9 +158,9 @@ const styles = StyleSheet.create({
     fontSize: 120,
   },
   pronunciationText: {
-    fontSize: 25,
+    fontSize: 22,
   },
   translationText: {
-    fontSize: 30,
+    fontSize: 28,
   },
 });
