@@ -111,8 +111,8 @@ export default class AssignmentView extends Component {
             {suffled_answers[1]}
           </Button>
         </View>
-        {Platform.OS === 'android' && <AdMobBanner bannerSize={"fullBanner"} adUnitID={config.adUnitID.android} />}
-        {Platform.OS === 'ios' && <AdMobBanner bannerSize={"fullBanner"} adUnitID={config.adUnitID.ios} />}
+        {Platform.OS === 'android' && <AdMobBanner bannerSize={"smartBannerPortrait"} adUnitID={config.adUnitID.android} />}
+        {Platform.OS === 'ios' && <AdMobBanner bannerSize={"smartBannerPortrait"} adUnitID={config.adUnitID.ios} />}
       </View>
     );
   }

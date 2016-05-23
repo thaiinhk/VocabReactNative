@@ -107,8 +107,8 @@ export default class SettingsView extends Component {
           dataSource={this.state.dataSource}
           renderPage={(pageData) => this._renderPage(pageData)}/>
 
-        {Platform.OS === 'android' && <AdMobBanner bannerSize={"fullBanner"} adUnitID={config.adUnitID.android} />}
-        {Platform.OS === 'ios' && <AdMobBanner bannerSize={"fullBanner"} adUnitID={config.adUnitID.ios} />}
+        {Platform.OS === 'android' && <AdMobBanner bannerSize={"smartBannerPortrait"} adUnitID={config.adUnitID.android} />}
+        {Platform.OS === 'ios' && <AdMobBanner bannerSize={"smartBannerPortrait"} adUnitID={config.adUnitID.ios} />}
       </View>
     );
   }
