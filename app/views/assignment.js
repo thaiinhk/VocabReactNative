@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
+  Text,
 } from 'react-native';
 
 // 3rd party libraries
@@ -23,9 +24,16 @@ import {config} from '../config';
 export default class AssignmentView extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
     let rands = _.sample(this.props.vocabulary, 2);
     this.state = Object.assign({}, rands[0]);
     this.state.answers = rands.map(e => e.word);
+    this.state.corrent = 0;
+    this.state.total = 0;
+  }
+
+  componentDidMmount() {
+    timer.clearTimeout(this);
   }
 
   componentWillUnmount() {
@@ -57,10 +65,17 @@ export default class AssignmentView extends Component {
     console.log(answer);
     if (answer === this.state.word) {
       console.log('Right');
-      this.setState({rightOrWrong: true});
+      this.setState({
+        rightOrWrong: true,
+        corrent: ++this.state.corrent,
+        total: ++this.state.total,
+      });
     } else {
       console.log('Wrong');
-      this.setState({rightOrWrong: false});
+      this.setState({
+        rightOrWrong: false,
+        total: ++this.state.total,
+      });
     }
 
     // this.getNext();
@@ -97,6 +112,7 @@ export default class AssignmentView extends Component {
       <View style={styles.container}>
         {this.renderToolbar()}
         <View style={styles.block}>
+          <Text style={styles.scoreText}>{this.state.corrent} / {this.state.total}</Text>
           <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(this.state.sound)}>
             <Icon name="play-circle-outline" size={120} color="gray" />
             {this.state.rightOrWrong === true && <Icon name="check" size={60} color="#4CAF50" />}
@@ -159,14 +175,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  wordText: {
-    fontSize: 120,
-  },
-  pronunciationText: {
-    fontSize: 22,
-  },
-  translationText: {
-    fontSize: 28,
+  scoreText: {
+    fontSize: 18,
+    margin: 10,
+    textAlign: 'center',
   },
   buttonLeft: {
     flex: 1,
