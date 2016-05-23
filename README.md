@@ -9,9 +9,14 @@
 
 ## App preview
 
-![Preview](https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot0.png "app preview")
-![Preview](https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot1.png "app preview")
-![Preview](https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot3.png "app preview")
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot0.png" width="280">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot1.png" width="280">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot3.png" width="280">
+<br />
+
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshotIOS0.png" width="280">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshotIOS1.png" width="280">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshotIOS2.png" width="280">
 
 ## Running
 
