@@ -9,6 +9,7 @@
     "release-android": "cd android && ./gradlew assembleRelease && cd .."
   },
   "dependencies": {
+    "apsl-react-native-button": "^2.5.0",
     "react": "^15.0.2",
     "react-native": "^0.26.1",
     "react-native-admob": "^1.0.0",
@@ -20,8 +21,10 @@
     "react-native-share": "^1.0.10",
     "react-native-simple-store": "^1.0.1",
     "react-native-sound": "^0.8.3",
+    "react-native-timer": "^1.1.2",
     "react-native-vector-icons": "^2.0.2",
-    "react-native-viewpager": "mitchell-johnson/react-native-viewpager"
+    "react-native-viewpager": "mitchell-johnson/react-native-viewpager",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.4",

@@ -3,6 +3,16 @@
 [![Dependency Status](https://img.shields.io/david/thaiinhk/VocabReactNative.svg)](https://img.shields.io/david/thaiinhk/VocabReactNative)
 [![devDependency Status](https://img.shields.io/david/dev/thaiinhk/VocabReactNative.svg)](https://github.com/thaiinhk/VocabReactNative#info=devDependencies)
 
+## Demo
+
+[![Play Store Button](https://raw.github.com/thaiinhk/VocabReactNative/master/assets/google-play.png "Google Play Button")](https://play.google.com/store/apps/details?id=com.thaiinhk.vocab)
+
+## App preview
+
+![Preview](https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot0.png "app preview")
+![Preview](https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot1.png "app preview")
+![Preview](https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot3.png "app preview")
+
 ## Running
 
 #### Clone & install

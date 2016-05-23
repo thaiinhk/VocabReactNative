@@ -29,7 +29,7 @@ exports.lessons = [{
     'word': 'ฟ',
     'pronunciation': 'f',
     'translation': 'ฟัน 牙齒',
-    'sound': 'E131792.mp3',
+    'sound': 'EP196801.mp3',
   }, {
     'word': 'ฮ',
     'pronunciation': 'h',

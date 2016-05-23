@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
+  TouchableOpacity,
 } from 'react-native';
 
 // 3rd party libraries
@@ -14,37 +13,33 @@ import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 import Sound from 'react-native-sound';
-import ViewPager from 'react-native-viewpager';
 // import Share from 'react-native-share';
+import Button from 'apsl-react-native-button';
+import _ from 'underscore';
+import timer from 'react-native-timer';
 
 import {config} from '../config';
 
-export default class SettingsView extends Component {
+export default class AssignmentView extends Component {
   constructor(props) {
-    var dataSource = new ViewPager.DataSource({
-      pageHasChanged: (p1, p2) => p1 !== p2,
-    });
-
     super(props);
-
-    this.state = {
-      dataSource: dataSource.cloneWithPages(this.props.vocabulary),
-    };
+    let rands = _.sample(this.props.vocabulary, 2);
+    this.state = Object.assign({}, rands[0]);
+    this.state.answers = rands.map(e => e.word);
   }
 
-  onShare(pageData) {
-    // Share.open({
-    //   share_text: pageData.word + ' ' + pageData.pronunciation + ' ' + pageData.translation,
-    //   title: pageData.word,
-    // }, function(e) {
-    //   console.log(e);
-    // });
+  componentWillUnmount() {
+    timer.clearTimeout(this);
   }
 
-  onActionSelected(position) {
-    if (position === 0) {  // index of 'Assignment'
-      Actions.assignment({title: this.props.title, vocabulary: this.props.vocabulary});
-    }
+  getNext() {
+    let rands = _.sample(this.props.vocabulary, 2);
+    this.setState(Object.assign({}, rands[0]));
+    this.setState({
+      answers: rands.map(e => e.word),
+      rightOrWrong: null,
+    });
+    console.log(this.state);
   }
 
   onPlaySound(sound) {
@@ -58,16 +53,18 @@ export default class SettingsView extends Component {
     });
   }
 
-  _renderPage(pageData) {
-    return (
-      <View style={styles.block}>
-        <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(pageData.sound)}>
-          <Text style={styles.wordText}>{pageData.word}</Text>
-          {pageData.pronunciation && <Text style={styles.pronunciationText}>{'/ ' + pageData.pronunciation + ' /'}</Text>}
-          {pageData.translation && <Text style={styles.translationText}>{pageData.translation}</Text>}
-        </TouchableOpacity>
-      </View>
-    );
+  reply(answer) {
+    console.log(answer);
+    if (answer === this.state.word) {
+      console.log('Right');
+      this.setState({rightOrWrong: true});
+    } else {
+      console.log('Wrong');
+      this.setState({rightOrWrong: false});
+    }
+
+    // this.getNext();
+    timer.setTimeout('next', () => this.getNext(), 1200);
   }
 
   renderToolbar() {
@@ -77,8 +74,6 @@ export default class SettingsView extends Component {
           style={styles.navigatorBarIOS}
           title={{title: this.props.title}}
           leftButton={<Icon style={styles.navigatorLeftButton} name="arrow-back" size={26} color="gray" onPress={() => Actions.pop()} />}
-          // rightButton={<Icon style={styles.navigatorRightButton} name="share" size={26} color="gray" onPress={() => this.onShare()} />}
-          rightButton={<Icon style={styles.navigatorRightButton} name="assignment" size={26} color="gray" onPress={() => Actions.assignment({title: this.props.title, vocabulary: this.props.vocabulary})} />}
         />
       );
     } else if (Platform.OS === 'android') {
@@ -89,24 +84,33 @@ export default class SettingsView extends Component {
           style={styles.toolbar}
           title={this.props.title}
           titleColor="white"
-          actions={[
-            {title: 'Test', iconName: 'assignment', iconSize: 26, show: 'always'},
-          ]}
-          onActionSelected={(position) => this.onActionSelected(position)}
         />
       );
     }
   }
 
   render() {
-    GoogleAnalytics.trackScreenView('lesson');
+    GoogleAnalytics.trackScreenView('assignment');
+    console.log(this.state.sound);
+    let suffled_answers = _.shuffle(this.state.answers);
     return (
       <View style={styles.container}>
         {this.renderToolbar()}
-        <ViewPager
-          dataSource={this.state.dataSource}
-          renderPage={(pageData) => this._renderPage(pageData)}/>
-
+        <View style={styles.block}>
+          <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(this.state.sound)}>
+            <Icon name="play-circle-outline" size={120} color="gray" />
+            {this.state.rightOrWrong === true && <Icon name="check" size={60} color="#4CAF50" />}
+            {this.state.rightOrWrong === false && <Icon name="close" size={60} color="#F44336" />}
+          </TouchableOpacity>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <Button style={styles.buttonLeft} textStyle={{fontSize: 18}} onPress={() => this.reply(suffled_answers[0])} >
+            {suffled_answers[0]}
+          </Button>
+          <Button style={styles.buttonRight} textStyle={{fontSize: 18}} onPress={() => this.reply(suffled_answers[1])} >
+            {suffled_answers[1]}
+          </Button>
+        </View>
         {Platform.OS === 'android' && <AdMobBanner bannerSize={"fullBanner"} adUnitID={config.adUnitID.android} />}
         {Platform.OS === 'ios' && <AdMobBanner bannerSize={"fullBanner"} adUnitID={config.adUnitID.ios} />}
       </View>
@@ -163,5 +167,23 @@ const styles = StyleSheet.create({
   },
   translationText: {
     fontSize: 28,
+  },
+  buttonLeft: {
+    flex: 1,
+    marginLeft: 10,
+    marginRight: 5,
+    borderColor: '#4DB6AC',
+    backgroundColor: 'white',
+    borderRadius: 0,
+    borderWidth: 3,
+  },
+  buttonRight: {
+    flex: 1,
+    marginLeft: 5,
+    marginRight: 10,
+    borderColor: '#FFB74D',
+    backgroundColor: 'white',
+    borderRadius: 0,
+    borderWidth: 3,
   },
 });

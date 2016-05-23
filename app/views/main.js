@@ -32,15 +32,11 @@ export default class Main extends Component {
     }, 500);
   }
 
-  _onPress(rowData) {
-    console.log(rowData+' pressed');
-  }
-
   _renderRowView(rowData) {
     return (
       <TouchableHighlight
         style={styles.row}
-        underlayColor='#EEEEEE'
+        underlayColor="#EEEEEE"
         onPress={() => Actions.lesson(rowData)}
       >
         <Text>{rowData.title}</Text>
