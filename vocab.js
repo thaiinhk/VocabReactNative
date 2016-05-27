@@ -17,7 +17,10 @@ import LessonView from './app/views/lesson';
 import AssignmentView from './app/views/assignment';
 
 // @todo remove when RN upstream is fixed
-console.ignoredYellowBox = ['Warning: Failed propType: SceneView'];
+console.ignoredYellowBox = [
+  'Warning: Failed propType: SceneView',
+  'Possible Unhandled Promise Rejection',
+];
 
 const scenes = Actions.create(
   <Scene key="root" hideNavBar={true}>
