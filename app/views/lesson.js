@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Platform,
   StyleSheet,
@@ -16,10 +16,11 @@ import NavigationBar from 'react-native-navbar';
 import Sound from 'react-native-sound';
 import ViewPager from 'react-native-viewpager';
 // import Share from 'react-native-share';
+import Speech from 'react-native-speech';
 
 import {config} from '../config';
 
-export default class SettingsView extends Component {
+export default class SettingsView extends React.Component {
   constructor(props) {
     var dataSource = new ViewPager.DataSource({
       pageHasChanged: (p1, p2) => p1 !== p2,
@@ -47,24 +48,40 @@ export default class SettingsView extends Component {
     }
   }
 
-  onPlaySound(sound) {
-    var s = new Sound(sound, Sound.MAIN_BUNDLE, (e) => {
-      if (e) {
-        console.log('error', e);
-      } else {
-        console.log('duration', s.getDuration());
-        s.play();
-      }
-    });
+  onPlaySound(pageData) {
+    if (Platform.OS === 'ios') {
+      Speech.speak({
+        text: pageData.word,
+        voice: 'th-TH',
+        rate: 0.2,
+      });
+    } else {
+      // AndroidSpeech.speak({
+      //   text: 'this is ระฆัง',
+      //   pitch: 1.5,
+      //   forceStop : false,
+      //   language : 'th-TH',
+      // });
+
+      var s = new Sound(pageData.sound, Sound.MAIN_BUNDLE, (e) => {
+        if (e) {
+          console.log('error', e);
+        } else {
+          console.log('duration', s.getDuration());
+          s.play();
+        }
+      });
+    }
   }
 
   _renderPage(pageData) {
     return (
       <View style={styles.block}>
-        <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(pageData.sound)}>
+        <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(pageData)}>
           <Text style={styles.wordText}>{pageData.word}</Text>
           {pageData.pronunciation && <Text style={styles.pronunciationText}>{'/ ' + pageData.pronunciation + ' /'}</Text>}
           {pageData.translation && <Text style={styles.translationText}>{pageData.translation}</Text>}
+          <Icon style={{marginTop: 20}} name="play-circle-outline" size={60} color="gray" />
         </TouchableOpacity>
       </View>
     );

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Platform,
   StyleSheet,
@@ -17,7 +17,7 @@ import GoogleAnalytics from 'react-native-google-analytics-bridge';
 // Data
 import {lessons} from '../data/lessons';
 
-export default class Main extends Component {
+export default class Main extends React.Component {
   _onFetch(page = 1, callback, options) {
     setTimeout(() => {
       var rows = lessons;

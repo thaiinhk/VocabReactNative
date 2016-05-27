@@ -10,18 +10,22 @@
   },
   "dependencies": {
     "apsl-react-native-button": "^2.5.0",
-    "react": "^15.0.2",
+    "react": "15.0.2",
     "react-native": "^0.26.2",
     "react-native-admob": "^1.0.0",
+    "react-native-android-speech": "0.0.5",
+    "react-native-android-voice": "^0.2.0",
     "react-native-gifted-listview": "0.0.15",
     "react-native-google-analytics-bridge": "^2.1.0",
     "react-native-navbar": "^1.5.0",
     "react-native-router-flux": "^3.26.5",
     "react-native-share": "^1.0.10",
     "react-native-sound": "^0.8.3",
+    "react-native-speech": "^0.1.2",
     "react-native-timer": "^1.1.2",
     "react-native-vector-icons": "^2.0.3",
     "react-native-viewpager": "mitchell-johnson/react-native-viewpager",
+    "react-native-voice": "^0.1.6",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

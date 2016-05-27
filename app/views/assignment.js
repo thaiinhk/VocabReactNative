@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Platform,
   StyleSheet,
@@ -8,20 +8,21 @@ import {
 } from 'react-native';
 
 // 3rd party libraries
+import _ from 'underscore';
 import { Actions } from 'react-native-router-flux';
 import { AdMobBanner } from 'react-native-admob';
+import Button from 'apsl-react-native-button';
 import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
-import Sound from 'react-native-sound';
 // import Share from 'react-native-share';
-import Button from 'apsl-react-native-button';
-import _ from 'underscore';
+import Sound from 'react-native-sound';
+import Speech from 'react-native-speech';
 import timer from 'react-native-timer';
 
 import {config} from '../config';
 
-export default class AssignmentView extends Component {
+export default class AssignmentView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -50,15 +51,30 @@ export default class AssignmentView extends Component {
     console.log(this.state);
   }
 
-  onPlaySound(sound) {
-    var s = new Sound(sound, Sound.MAIN_BUNDLE, (e) => {
-      if (e) {
-        console.log('error', e);
-      } else {
-        console.log('duration', s.getDuration());
-        s.play();
-      }
-    });
+  onPlaySound(pageData) {
+    if (Platform.OS === 'ios') {
+      Speech.speak({
+        text: pageData.word,
+        voice: 'th-TH',
+        rate: 0.2,
+      });
+    } else {
+      // AndroidSpeech.speak({
+      //   text: 'this is ระฆัง',
+      //   pitch: 1.5,
+      //   forceStop : false,
+      //   language : 'th-TH',
+      // });
+
+      var s = new Sound(pageData.sound, Sound.MAIN_BUNDLE, (e) => {
+        if (e) {
+          console.log('error', e);
+        } else {
+          console.log('duration', s.getDuration());
+          s.play();
+        }
+      });
+    }
   }
 
   reply(answer) {
@@ -113,17 +129,17 @@ export default class AssignmentView extends Component {
         {this.renderToolbar()}
         <View style={styles.block}>
           <Text style={styles.scoreText}>{this.state.corrent} / {this.state.total}</Text>
-          <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(this.state.sound)}>
+          <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(this.state)}>
             <Icon name="play-circle-outline" size={120} color="gray" />
             {this.state.rightOrWrong === true && <Icon name="check" size={60} color="#4CAF50" />}
             {this.state.rightOrWrong === false && <Icon name="close" size={60} color="#F44336" />}
           </TouchableOpacity>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <Button style={styles.buttonLeft} textStyle={{fontSize: 18}} onPress={() => this.reply(suffled_answers[0])} >
+          <Button style={styles.buttonLeft} textStyle={{fontSize: 22}} onPress={() => this.reply(suffled_answers[0])} >
             {suffled_answers[0]}
           </Button>
-          <Button style={styles.buttonRight} textStyle={{fontSize: 18}} onPress={() => this.reply(suffled_answers[1])} >
+          <Button style={styles.buttonRight} textStyle={{fontSize: 22}} onPress={() => this.reply(suffled_answers[1])} >
             {suffled_answers[1]}
           </Button>
         </View>

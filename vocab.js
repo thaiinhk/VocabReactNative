@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Actions,
   Router,
@@ -27,7 +27,7 @@ const scenes = Actions.create(
   </Scene>
 );
 
-export default class Periods extends Component {
+export default class Periods extends React.Component {
   render() {
     return <Router scenes={scenes} />;
   }

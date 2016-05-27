@@ -8,6 +8,7 @@ import cl.json.RNSharePackage;
 import com.sbugert.rnadmob.RNAdMobPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.mihir.react.tts.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +45,8 @@ public class MainActivity extends ReactActivity {
             new RNSoundPackage(),
             new VectorIconsPackage(),
             new RNSharePackage(),
-            new RNAdMobPackage()
+            new RNAdMobPackage(),
+            new RCTTextToSpeechModule()
         );
     }
 }
