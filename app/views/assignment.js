@@ -32,7 +32,7 @@ export default class AssignmentView extends Component {
     this.state.total = 0;
   }
 
-  componentDidMmount() {
+  componentDidMount() {
     timer.clearTimeout(this);
   }
 
