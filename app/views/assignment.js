@@ -25,12 +25,14 @@ import {config} from '../config';
 export default class AssignmentView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
     let rands = _.sample(this.props.vocabulary, 2);
-    this.state = Object.assign({}, rands[0]);
-    this.state.answers = rands.map(e => e.word);
-    this.state.corrent = 0;
-    this.state.total = 0;
+    let answers = rands.map(e => e.word);
+    this.state = Object.assign({}, rands[0], {
+      answers: answers,
+      suffled_answers: _.shuffle(answers),
+      corrent: 0,
+      total: 0,
+    });
   }
 
   componentDidMount() {
@@ -43,11 +45,12 @@ export default class AssignmentView extends React.Component {
 
   getNext() {
     let rands = _.sample(this.props.vocabulary, 2);
-    this.setState(Object.assign({}, rands[0]));
-    this.setState({
-      answers: rands.map(e => e.word),
+    let answers = rands.map(e => e.word);
+    this.setState(Object.assign({}, rands[0], {
+      answers: answers,
+      suffled_answers: _.shuffle(answers),
       rightOrWrong: null,
-    });
+    }));
     console.log(this.state);
   }
 
@@ -122,8 +125,6 @@ export default class AssignmentView extends React.Component {
 
   render() {
     GoogleAnalytics.trackScreenView('assignment');
-    console.log(this.state.sound);
-    let suffled_answers = _.shuffle(this.state.answers);
     return (
       <View style={styles.container}>
         {this.renderToolbar()}
@@ -136,11 +137,11 @@ export default class AssignmentView extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <Button style={styles.buttonLeft} textStyle={{fontSize: 22}} onPress={() => this.reply(suffled_answers[0])} >
-            {suffled_answers[0]}
+          <Button style={styles.buttonLeft} textStyle={{fontSize: 22}} onPress={() => this.reply(this.state.suffled_answers[0])} >
+            {this.state.suffled_answers[0]}
           </Button>
-          <Button style={styles.buttonRight} textStyle={{fontSize: 22}} onPress={() => this.reply(suffled_answers[1])} >
-            {suffled_answers[1]}
+          <Button style={styles.buttonRight} textStyle={{fontSize: 22}} onPress={() => this.reply(this.state.suffled_answers[1])} >
+            {this.state.suffled_answers[1]}
           </Button>
         </View>
         {Platform.OS === 'android' && <AdMobBanner bannerSize={"smartBannerPortrait"} adUnitID={config.adUnitID.android} />}
