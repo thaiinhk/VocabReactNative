@@ -78,7 +78,7 @@ export default class SettingsView extends React.Component {
     return (
       <View style={styles.block}>
         <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(pageData)}>
-          <Text style={styles.wordText}>{pageData.word}</Text>
+          <Text style={[styles.wordText, {fontSize: 120 - 7 * pageData.word.length}]}>{pageData.word}</Text>
           {pageData.pronunciation && <Text style={styles.pronunciationText}>{'/ ' + pageData.pronunciation + ' /'}</Text>}
           {pageData.translation && <Text style={styles.translationText}>{pageData.translation}</Text>}
           <Icon style={{marginTop: 20}} name="play-circle-outline" size={60} color="gray" />
