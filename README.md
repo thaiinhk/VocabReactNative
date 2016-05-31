@@ -6,6 +6,7 @@
 ## Demo
 
 [![Play Store Button](https://raw.github.com/thaiinhk/VocabReactNative/master/assets/google-play.png "Google Play Button")](https://play.google.com/store/apps/details?id=com.thaiinhk.vocab)
+[![App Store Button](https://raw.github.com/thaiinhk/VocabReactNative/master/assets/app-store.png "App Store Button")](https://itunes.apple.com/us/app/vocab/id1116896895?mt=8)
 
 ## App preview
 
