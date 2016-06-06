@@ -9,27 +9,32 @@ import {
 
 // 3rd party libraries
 import { Actions } from 'react-native-router-flux';
+import { AdMobBanner } from 'react-native-admob';
 import GiftedListView from 'react-native-gifted-listview';
+import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
-import GoogleAnalytics from 'react-native-google-analytics-bridge';
+
+import {config} from '../config';
 
 // Data
 import {lessons} from '../data/lessons';
 
+const LESSON_PER_SECTION = 8;
+
 export default class Main extends React.Component {
   _onFetch(page = 1, callback, options) {
-    setTimeout(() => {
-      var rows = lessons;
+    var header = page;
+    var rows = {};
+    rows[header] = lessons.slice(LESSON_PER_SECTION * (page - 1), LESSON_PER_SECTION * page);
 
-      if (page === 3) {
-        callback(rows, {
-          allLoaded: true, // the end of the list is reached
-        });
-      } else {
-        callback(rows);
-      }
-    }, 500);
+    if (LESSON_PER_SECTION * page >= lessons.length) {
+      callback(rows, {
+        allLoaded: true, // the end of the list is reached
+      });
+    } else {
+      callback(rows);
+    }
   }
 
   _renderRowView(rowData) {
@@ -42,6 +47,39 @@ export default class Main extends React.Component {
         <Text>{rowData.title}</Text>
       </TouchableHighlight>
     );
+  }
+
+  _renderPaginationWaitingView(paginateCallback) {
+    return (
+      <TouchableHighlight
+        underlayColor="#C8C7CC"
+        onPress={paginateCallback}
+        style={styles.paginationView}
+      >
+        <View style={{flexDirection: 'row'}}>
+          <Icon name="touch-app" size={15} color="gray"/>
+          <Text style={{fontSize: 13}}>{'Load more'}</Text>
+        </View>
+      </TouchableHighlight>
+    );
+  }
+
+  _renderSectionHeaderView(sectionData, sectionID) {
+    console.log(sectionID);
+    if (sectionID !== '1') {
+      return (
+        <View>
+          {Platform.OS === 'android' && <AdMobBanner bannerSize={"smartBannerPortrait"} adUnitID={config.adUnitID.android} />}
+          {Platform.OS === 'ios' && <AdMobBanner bannerSize={"smartBannerPortrait"} adUnitID={config.adUnitID.ios} />}
+        </View>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  _renderPaginationAllLoadedView() {
+    return null;
   }
 
   renderToolbar() {
@@ -70,15 +108,19 @@ export default class Main extends React.Component {
         <GiftedListView
           rowView={this._renderRowView}
           onFetch={this._onFetch}
+
+          initialListSize={12}
+
           firstLoader={true}
-          pagination={false}
           refreshable={false}
-          withSections={false}
-          customStyles={{
-            paginationView: {
-              backgroundColor: '#eee',
-            },
-          }}
+
+          withSections={true}
+          sectionHeaderView={this._renderSectionHeaderView}
+
+          paginationAllLoadedView={this._renderPaginationAllLoadedView}
+
+          pagination={true}
+          paginationWaitingView={this._renderPaginationWaitingView}
 
           refreshableTintColor="blue"
         />
@@ -116,6 +158,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     justifyContent: 'center',
     borderBottomColor: '#E0E0E0',
+    backgroundColor: 'white',
+  },
+  paginationView: {
+    height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'white',
   },
 });

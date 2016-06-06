@@ -9,7 +9,7 @@ import {
 
 // 3rd party libraries
 import { Actions } from 'react-native-router-flux';
-import { AdMobBanner } from 'react-native-admob';
+import { AdMobBanner, AdMobInterstitial } from 'react-native-admob';
 import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
@@ -17,6 +17,8 @@ import Sound from 'react-native-sound';
 import ViewPager from 'react-native-viewpager';
 // import Share from 'react-native-share';
 import Speech from 'react-native-speech';
+// import tts from 'react-native-android-speech';
+import timer from 'react-native-timer';
 
 import {config} from '../config';
 
@@ -31,6 +33,19 @@ export default class SettingsView extends React.Component {
     this.state = {
       dataSource: dataSource.cloneWithPages(this.props.vocabulary),
     };
+  }
+
+  componentDidMount() {
+    timer.clearTimeout(this);
+    // AdMobInterstitial.setTestDeviceID('EMULATOR');
+    AdMobInterstitial.setAdUnitID(config.adUnitID.iosInterstital);
+    timer.setTimeout('AdMobInterstitial', () => {
+      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd((error) => error && console.log(error)));
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    timer.clearTimeout(this);
   }
 
   onShare(pageData) {
@@ -56,7 +71,7 @@ export default class SettingsView extends React.Component {
         rate: 0.2,
       });
     } else {
-      // AndroidSpeech.speak({
+      // tts.speak({
       //   text: 'this is ระฆัง',
       //   pitch: 1.5,
       //   forceStop : false,

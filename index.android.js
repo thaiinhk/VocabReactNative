@@ -8,7 +8,6 @@ import Vocab from './vocab';
 import { Actions } from 'react-native-router-flux';
 
 BackAndroid.addEventListener('hardwareBackPress', () => {
-  console.log(Actions);
   try {
     Actions.pop();
     return true;
