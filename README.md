@@ -1,7 +1,6 @@
 # VocabReactNative
 
-[![Dependency Status](https://img.shields.io/david/thaiinhk/VocabReactNative.svg)](https://github.com/thaiinhk/VocabReactNative#info=dependencies)
-[![devDependency Status](https://img.shields.io/david/dev/thaiinhk/VocabReactNative.svg)](https://github.com/thaiinhk/VocabReactNative#info=devDependencies)
+[![Dependency Status](https://david-dm.org/thaiinhk/VocabReactNative.svg)](https://david-dm.org/thaiinhk/VocabReactNative) [![devDependency Status](https://david-dm.org/thaiinhk/VocabReactNative/dev-status.svg)](https://david-dm.org/thaiinhk/VocabReactNative#info=devDependencies)
 
 ## Demo
 
