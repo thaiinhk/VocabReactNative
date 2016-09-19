@@ -1,4 +1,9 @@
 import React from 'react';
+
+import {
+  Platform,
+} from 'react-native';
+
 import {
   Actions,
   Router,
@@ -6,20 +11,27 @@ import {
 } from 'react-native-router-flux';
 
 // 3rd party libraries
+import DeviceInfo from 'react-native-device-info';
 import GoogleAnalytics from 'react-native-google-analytics-bridge';
-
-import {config} from './app/config';
-GoogleAnalytics.setTrackerId(config.trackerId);
 
 // Views
 import MainView from './app/views/main';
 import LessonView from './app/views/lesson';
 import AssignmentView from './app/views/assignment';
 
+import { config } from './app/config';
+
+GoogleAnalytics.setTrackerId(config.googleAnalytics[Platform.OS]);
+
+if (DeviceInfo.getDeviceName() === 'iPhone Simulator' || DeviceInfo.getManufacturer() === 'Genymotion') {
+  GoogleAnalytics.setDryRun(true);
+}
+
 // @todo remove when RN upstream is fixed
 console.ignoredYellowBox = [
   'Warning: Failed propType: SceneView',
   'Possible Unhandled Promise Rejection',
+  'ActivityIndicatorIOS is deprecated. Use ActivityIndicator instead.',
 ];
 
 const scenes = Actions.create(

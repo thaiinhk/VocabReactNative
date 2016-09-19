@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -9,23 +9,91 @@ import {
 
 // 3rd party libraries
 import { Actions } from 'react-native-router-flux';
-import { AdMobBanner } from 'react-native-admob';
+import { AdMobInterstitial } from 'react-native-admob';
 import GiftedListView from 'react-native-gifted-listview';
 import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
+import timer from 'react-native-timer';
 
-import {config} from '../config';
+// Component
+import AdmobCell from './admob';
+
+import { config } from '../config';
 
 // Data
-import {lessons} from '../data/lessons';
+import { lessons } from '../data/lessons';
 
-const LESSON_PER_SECTION = 8;
+const LESSON_PER_SECTION = 20;
 
-export default class Main extends React.Component {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F1F8E9',
+  },
+  navigatorBarIOS: {
+    borderBottomWidth: StyleSheet.hairlineWidth * 2,
+    borderBottomColor: '#4CAF50',
+  },
+  navigatorLeftButton: {
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 50,
+  },
+  navigatorRightButton: {
+    paddingTop: 10,
+    paddingLeft: 50,
+    paddingRight: 10,
+  },
+  toolbar: {
+    height: 56,
+    backgroundColor: '#4CAF50',
+  },
+  row: {
+    padding: 15,
+    marginHorizontal: 10,
+    marginVertical: 4,
+    justifyContent: 'center',
+    borderRightWidth: StyleSheet.hairlineWidth,
+    borderRightColor: '#E0E0E0',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#E0E0E0',
+    backgroundColor: 'white',
+  },
+  title: {
+    fontSize: 18,
+    color: '#212121',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#424242',
+    marginTop: 10,
+  },
+  paginationView: {
+    height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+});
+
+export default class Main extends Component {
+  componentDidMount() {
+    timer.clearTimeout(this);
+    // AdMobInterstitial.setTestDeviceID('EMULATOR');
+    AdMobInterstitial.setAdUnitID(config.admob.ios.interstital);
+    timer.setTimeout(this, 'AdMobInterstitial', () => {
+      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd((error) => error && console.log(error)));
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    timer.clearTimeout(this);
+  }
+
   _onFetch(page = 1, callback, options) {
-    var header = page;
-    var rows = {};
+    const header = page;
+    const rows = {};
     rows[header] = lessons.slice(LESSON_PER_SECTION * (page - 1), LESSON_PER_SECTION * page);
 
     if (LESSON_PER_SECTION * page >= lessons.length) {
@@ -40,11 +108,13 @@ export default class Main extends React.Component {
   _renderRowView(rowData) {
     return (
       <TouchableHighlight
-        style={styles.row}
         underlayColor="#EEEEEE"
         onPress={() => Actions.lesson(rowData)}
       >
-        <Text>{rowData.title}</Text>
+        <View style={styles.row}>
+          <Text style={styles.title}>{rowData.title}</Text>
+          <Text style={styles.subtitle}>{rowData.subtitle}</Text>
+        </View>
       </TouchableHighlight>
     );
   }
@@ -56,9 +126,9 @@ export default class Main extends React.Component {
         onPress={paginateCallback}
         style={styles.paginationView}
       >
-        <View style={{flexDirection: 'row'}}>
-          <Icon name="touch-app" size={15} color="gray"/>
-          <Text style={{fontSize: 13}}>{'Load more'}</Text>
+        <View style={{ flexDirection: 'row' }}>
+          <Icon name="touch-app" size={15} color="gray" />
+          <Text style={{ fontSize: 13 }}>{'Load more'}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -67,15 +137,10 @@ export default class Main extends React.Component {
   _renderSectionHeaderView(sectionData, sectionID) {
     console.log(sectionID);
     if (sectionID !== '1') {
-      return (
-        <View>
-          {Platform.OS === 'android' && <AdMobBanner bannerSize={"smartBannerPortrait"} adUnitID={config.adUnitID.android} />}
-          {Platform.OS === 'ios' && <AdMobBanner bannerSize={"smartBannerPortrait"} adUnitID={config.adUnitID.ios} />}
-        </View>
-      );
-    } else {
-      return null;
+      return <AdmobCell />;
     }
+
+    return null;
   }
 
   _renderPaginationAllLoadedView() {
@@ -87,7 +152,7 @@ export default class Main extends React.Component {
       return (
         <NavigationBar
           style={styles.navigatorBarIOS}
-          title={{title: this.props.title}}
+          title={{ title: this.props.title }}
         />
       );
     } else if (Platform.OS === 'android') {
@@ -95,7 +160,8 @@ export default class Main extends React.Component {
         <Icon.ToolbarAndroid
           style={styles.toolbar}
           title={this.props.title}
-          titleColor="white" />
+          titleColor="white"
+        />
       );
     }
   }
@@ -124,46 +190,9 @@ export default class Main extends React.Component {
 
           refreshableTintColor="blue"
         />
+
+        <AdmobCell />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F1F8E9',
-  },
-  navigatorBarIOS: {
-    borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: '#4CAF50',
-  },
-  navigatorLeftButton: {
-    paddingTop: 10,
-    paddingLeft: 10,
-    paddingRight: 50,
-  },
-  navigatorRightButton: {
-    paddingTop: 10,
-    paddingLeft: 50,
-    paddingRight: 10,
-  },
-  toolbar: {
-    height: 56,
-    backgroundColor: '#4CAF50',
-  },
-  row: {
-    height: 50,
-    padding: 10,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    justifyContent: 'center',
-    borderBottomColor: '#E0E0E0',
-    backgroundColor: 'white',
-  },
-  paginationView: {
-    height: 44,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-});
