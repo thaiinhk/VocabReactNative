@@ -20,44 +20,23 @@ import timer from 'react-native-timer';
 import AdmobCell from './admob';
 
 import { config } from '../config';
+import commonStyle from '../common-styles';
 
 // Data
 import { lessons } from '../data/lessons';
 
 const LESSON_PER_SECTION = 20;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F1F8E9',
-  },
-  navigatorBarIOS: {
-    borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: '#4CAF50',
-  },
-  navigatorLeftButton: {
-    paddingTop: 10,
-    paddingLeft: 10,
-    paddingRight: 50,
-  },
-  navigatorRightButton: {
-    paddingTop: 10,
-    paddingLeft: 50,
-    paddingRight: 10,
-  },
-  toolbar: {
-    height: 56,
-    backgroundColor: '#4CAF50',
-  },
+const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   row: {
     padding: 15,
     marginHorizontal: 10,
-    marginVertical: 4,
+    marginVertical: 5,
     justifyContent: 'center',
-    borderRightWidth: StyleSheet.hairlineWidth,
-    borderRightColor: '#E0E0E0',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E0E0E0',
+    borderRightWidth: StyleSheet.hairlineWidth * 2,
+    borderRightColor: '#CCCCCC',
+    borderBottomWidth: StyleSheet.hairlineWidth * 2,
+    borderBottomColor: '#CCCCCC',
     backgroundColor: 'white',
   },
   title: {
@@ -75,7 +54,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
   },
-});
+}));
 
 export default class MainView extends Component {
   componentDidMount() {
@@ -150,8 +129,9 @@ export default class MainView extends Component {
     if (Platform.OS === 'ios') {
       return (
         <NavigationBar
+          statusBar={{ style: 'light-content', tintColor: '#4CAF50' }}
           style={styles.navigatorBarIOS}
-          title={{ title: this.props.title }}
+          title={{ title: this.props.title, tintColor: 'white' }}
         />
       );
     } else if (Platform.OS === 'android') {

@@ -19,43 +19,20 @@ import Sound from 'react-native-sound';
 import Speech from 'react-native-speech';
 import timer from 'react-native-timer';
 
+import commonStyle from '../common-styles';
+
 // Component
 import AdmobCell from './admob';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F1F8E9',
-  },
-  navigatorBarIOS: {
-    borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: '#4CAF50',
-  },
-  navigatorLeftButton: {
-    paddingTop: 10,
-    paddingLeft: 10,
-    paddingRight: 50,
-  },
-  navigatorRightButton: {
-    paddingTop: 10,
-    paddingLeft: 50,
-    paddingRight: 10,
-  },
-  toolbar: {
-    height: 56,
-    backgroundColor: '#4CAF50',
-  },
+const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   block: {
     flex: 1,
     backgroundColor: 'white',
-    marginTop: 5,
-    marginBottom: 5,
-    marginLeft: 10,
-    marginRight: 10,
+    margin: 10,
     paddingBottom: 20,
-    borderRightWidth: StyleSheet.hairlineWidth,
+    borderRightWidth: StyleSheet.hairlineWidth * 2,
     borderRightColor: '#CCCCCC',
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderBottomColor: '#CCCCCC',
   },
   center: {
@@ -64,12 +41,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   scoreText: {
+    marginTop: 20,
     fontSize: 18,
-    margin: 10,
     textAlign: 'center',
   },
   buttonLeft: {
     flex: 1,
+    height: 80,
     marginLeft: 10,
     marginRight: 5,
     borderColor: '#4DB6AC',
@@ -79,6 +57,7 @@ const styles = StyleSheet.create({
   },
   buttonRight: {
     flex: 1,
+    height: 80,
     marginLeft: 5,
     marginRight: 10,
     borderColor: '#FFB74D',
@@ -86,7 +65,7 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     borderWidth: 3,
   },
-});
+}));
 
 export default class AssignmentView extends React.Component {
   constructor(props) {
@@ -164,16 +143,17 @@ export default class AssignmentView extends React.Component {
     }
 
     // this.getNext();
-    timer.setTimeout('next', () => this.getNext(), 1200);
+    timer.setTimeout('next', () => this.getNext(), 1000);
   }
 
   renderToolbar() {
     if (Platform.OS === 'ios') {
       return (
         <NavigationBar
+          statusBar={{ style: 'light-content', tintColor: '#4CAF50' }}
           style={styles.navigatorBarIOS}
-          title={{ title: this.props.title }}
-          leftButton={<Icon style={styles.navigatorLeftButton} name="arrow-back" size={26} color="gray" onPress={() => Actions.pop()} />}
+          title={{ title: this.props.title, tintColor: 'white' }}
+          leftButton={<Icon style={styles.navigatorLeftButton} name="arrow-back" size={26} color="white" onPress={() => Actions.pop()} />}
         />
       );
     } else if (Platform.OS === 'android') {
@@ -203,10 +183,10 @@ export default class AssignmentView extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={{ flexDirection: 'row' }}>
-          <Button style={styles.buttonLeft} textStyle={{ fontSize: 22 }} onPress={() => this.reply(this.state.suffled_answers[0])} >
+          <Button style={styles.buttonLeft} textStyle={{ fontSize: 24 }} onPress={() => this.reply(this.state.suffled_answers[0])} >
             {this.state.suffled_answers[0]}
           </Button>
-          <Button style={styles.buttonRight} textStyle={{ fontSize: 22 }} onPress={() => this.reply(this.state.suffled_answers[1])} >
+          <Button style={styles.buttonRight} textStyle={{ fontSize: 24 }} onPress={() => this.reply(this.state.suffled_answers[1])} >
             {this.state.suffled_answers[1]}
           </Button>
         </View>

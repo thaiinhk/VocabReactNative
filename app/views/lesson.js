@@ -15,47 +15,23 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 import Sound from 'react-native-sound';
 import ViewPager from 'react-native-viewpager';
-// import Share from 'react-native-share';
 import Speech from 'react-native-speech';
 // import tts from 'react-native-android-speech';
+
+import commonStyle from '../common-styles';
 
 // Component
 import AdmobCell from './admob';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F1F8E9',
-  },
-  navigatorBarIOS: {
-    borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: '#4CAF50',
-  },
-  navigatorLeftButton: {
-    paddingTop: 10,
-    paddingLeft: 10,
-    paddingRight: 50,
-  },
-  navigatorRightButton: {
-    paddingTop: 10,
-    paddingLeft: 50,
-    paddingRight: 10,
-  },
-  toolbar: {
-    height: 56,
-    backgroundColor: '#4CAF50',
-  },
+const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   block: {
     flex: 1,
     backgroundColor: 'white',
-    marginTop: 5,
-    marginBottom: 5,
-    marginLeft: 10,
-    marginRight: 10,
+    margin: 10,
     paddingBottom: 20,
-    borderRightWidth: StyleSheet.hairlineWidth,
+    borderRightWidth: StyleSheet.hairlineWidth * 2,
     borderRightColor: '#CCCCCC',
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderBottomColor: '#CCCCCC',
   },
   center: {
@@ -68,11 +44,12 @@ const styles = StyleSheet.create({
   },
   pronunciationText: {
     fontSize: 22,
+    marginTop: 20,
   },
   translationText: {
     fontSize: 28,
   },
-});
+}));
 
 export default class LessonView extends React.Component {
   constructor(props) {
@@ -83,16 +60,6 @@ export default class LessonView extends React.Component {
     this.state = {
       dataSource: dataSource.cloneWithPages(this.props.vocabulary),
     };
-  }
-
-  onShare(pageData) {
-    console.log(pageData);
-    // Share.open({
-    //   share_text: pageData.word + ' ' + pageData.pronunciation + ' ' + pageData.translation,
-    //   title: pageData.word,
-    // }, function(e) {
-    //   console.log(e);
-    // });
   }
 
   onActionSelected(position) {
@@ -145,16 +112,16 @@ export default class LessonView extends React.Component {
     if (Platform.OS === 'ios') {
       return (
         <NavigationBar
+          statusBar={{ style: 'light-content', tintColor: '#4CAF50' }}
           style={styles.navigatorBarIOS}
-          title={{ title: this.props.title }}
-          leftButton={<Icon style={styles.navigatorLeftButton} name="arrow-back" size={26} color="gray" onPress={() => Actions.pop()} />}
-          // rightButton={<Icon style={styles.navigatorRightButton} name="share" size={26} color="gray" onPress={() => this.onShare()} />}
+          title={{ title: this.props.title, tintColor: 'white' }}
+          leftButton={<Icon style={styles.navigatorLeftButton} name="arrow-back" size={26} color="white" onPress={() => Actions.pop()} />}
           rightButton={
             <FoundationIcon
               style={styles.navigatorRightButton}
               name="clipboard-pencil"
               size={26}
-              color="gray"
+              color="white"
               onPress={() => Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary })}
             />
           }
