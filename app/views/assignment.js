@@ -10,6 +10,7 @@ import {
 // 3rd party libraries
 import _ from 'underscore';
 import { Actions } from 'react-native-router-flux';
+import { AdMobInterstitial } from 'react-native-admob';
 import Button from 'apsl-react-native-button';
 import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -23,6 +24,8 @@ import commonStyle from '../common-styles';
 
 // Component
 import AdmobCell from './admob';
+
+import { config } from '../config';
 
 const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   block: {
@@ -146,6 +149,12 @@ export default class AssignmentView extends React.Component {
     timer.setTimeout('next', () => this.getNext(), 1000);
   }
 
+  popAndAd() {
+    AdMobInterstitial.setAdUnitID(config.admob[Platform.OS].interstital);
+    AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd((error) => error && console.log(error)));
+    Actions.pop();
+  }
+
   renderToolbar() {
     if (Platform.OS === 'ios') {
       return (
@@ -153,7 +162,13 @@ export default class AssignmentView extends React.Component {
           statusBar={{ style: 'light-content', tintColor: '#4CAF50' }}
           style={styles.navigatorBarIOS}
           title={{ title: this.props.title, tintColor: 'white' }}
-          leftButton={<Icon style={styles.navigatorLeftButton} name="arrow-back" size={26} color="white" onPress={() => Actions.pop()} />}
+          leftButton={<Icon
+            style={styles.navigatorLeftButton}
+            name="arrow-back"
+            size={26}
+            color="white"
+            onPress={() => this.popAndAd()}
+          />}
         />
       );
     } else if (Platform.OS === 'android') {
@@ -177,7 +192,7 @@ export default class AssignmentView extends React.Component {
         <View style={styles.block}>
           <Text style={styles.scoreText}>{this.state.corrent} / {this.state.total}</Text>
           <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(this.state)}>
-            <Icon name="play-circle-outline" size={120} color="gray" />
+            <Icon name="play-circle-filled" size={100} color="#4CAF50" />
             {this.state.rightOrWrong === true && <Icon name="check" size={60} color="#4CAF50" />}
             {this.state.rightOrWrong === false && <Icon name="close" size={60} color="#F44336" />}
           </TouchableOpacity>

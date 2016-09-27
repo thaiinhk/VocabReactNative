@@ -30,6 +30,7 @@ const LESSON_PER_SECTION = 20;
 const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   row: {
     padding: 15,
+    paddingLeft: 20,
     marginHorizontal: 10,
     marginVertical: 5,
     justifyContent: 'center',
@@ -59,7 +60,7 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
 export default class MainView extends Component {
   componentDidMount() {
     timer.clearTimeout(this);
-    AdMobInterstitial.setAdUnitID(config.admob.ios.interstital);
+    AdMobInterstitial.setAdUnitID(config.admob[Platform.OS].interstital);
     timer.setTimeout(this, 'AdMobInterstitial', () => {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd((error) => error && console.log(error)));
     }, 1000);
@@ -91,7 +92,8 @@ export default class MainView extends Component {
       >
         <View style={styles.row}>
           <Text style={styles.title}>{rowData.title}</Text>
-          <Text style={styles.subtitle}>{rowData.subtitle}</Text>
+          <Text style={styles.subtitle}>{rowData.entitle}</Text>
+          <Text style={styles.subtitle}>{rowData.thtitle}</Text>
         </View>
       </TouchableHighlight>
     );

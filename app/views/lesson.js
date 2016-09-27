@@ -62,6 +62,13 @@ export default class LessonView extends React.Component {
     };
   }
 
+  componentDidMount() {
+    Speech.supportedVoices()
+      .then(locales => {
+        console.log('Supported voices', locales);  // ["ar-SA", "en-ZA", "nl-BE", "en-AU", "th-TH", ...]
+      });
+  }
+
   onActionSelected(position) {
     if (position === 0) {  // index of 'Assignment'
       Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary });
@@ -102,7 +109,7 @@ export default class LessonView extends React.Component {
           {pageData.pronunciation && <Text style={styles.pronunciationText}>{`/ ${pageData.pronunciation} /`}</Text>}
           {pageData.translation && <Text style={styles.translationText}>{pageData.translation}</Text>}
           {pageData.translation && <Text style={styles.translationText}>{pageData.entranslation}</Text>}
-          <Icon style={{ marginTop: 20 }} name="play-circle-outline" size={60} color="gray" />
+          <Icon style={{ marginTop: 20 }} name="play-circle-filled" size={80} color="#4CAF50" />
         </TouchableOpacity>
       </View>
     );

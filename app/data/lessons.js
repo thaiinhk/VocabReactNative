@@ -797,46 +797,57 @@ const fruits = [{
 
 exports.lessons = [{
   title: '低輔音（I）',
-  subtitle: 'Low consonants อักษรต่ำ (I)',
+  entitle: 'Low consonants',
+  thtitle: 'อักษรต่ำ (I)',
   vocabulary: lowConsonants1,
 }, {
   title: '低輔音（II）',
-  subtitle: 'Low consonants อักษรต่ำ (II)',
+  entitle: 'Low consonants',
+  thtitle: 'อักษรต่ำ',
   vocabulary: lowConsonants2,
 }, {
   title: '低輔音（III）',
-  subtitle: 'Low consonants อักษรต่ำ (III)',
+  entitle: 'Low consonants',
+  thtitle: 'อักษรต่ำ',
   vocabulary: lowConsonants3,
 }, {
   title: '高輔音',
-  subtitle: 'High consonants อักษรสูง',
+  entitle: 'High consonants',
+  thtitle: 'อักษรสูง',
   vocabulary: highConsonants,
 }, {
   title: '中輔音',
-  subtitle: 'Middle consonants อักษรกลาง',
+  entitle: 'Middle consonants',
+  thtitle: 'อักษรกลาง',
   vocabulary: midConsonants,
 }, {
   title: '所有輔音',
-  subtitle: 'All consonants อักษรทั้งหมด',
+  entitle: 'All consonants',
+  thtitle: 'อักษรทั้งหมด',
   vocabulary: allConsonants,
 }, {
   title: '數字（I）',
-  subtitle: 'Numbers ตัวเลข (I)',
+  entitle: 'Numbers',
+  thtitle: 'ตัวเลข',
   vocabulary: numbers1,
 }, {
   title: '數字（II）',
-  subtitle: 'Numbers ตัวเลข (II)',
+  entitle: 'Numbers',
+  thtitle: 'ตัวเลข',
   vocabulary: numbers2,
 }, {
   title: '數字（III）',
-  subtitle: 'Numbers ตัวเลข (III)',
+  entitle: 'Numbers',
+  thtitle: 'ตัวเลข',
   vocabulary: numbers3,
 }, {
   title: '交通運輸',
-  subtitle: 'Transportations การขนส่ง',
+  entitle: 'Transportations',
+  thtitle: 'การขนส่ง',
   vocabulary: transportations,
 }, {
   title: '水果',
-  subtitle: 'Fruits ผลไม้',
+  entitle: 'Fruits',
+  thtitle: 'ผลไม้',
   vocabulary: fruits,
 }];
