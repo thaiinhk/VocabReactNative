@@ -1,5 +1,5 @@
 import {
-  AppRegistry
+  AppRegistry,
 } from 'react-native';
 import Vocab from './vocab';
 

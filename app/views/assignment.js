@@ -109,17 +109,6 @@ export default class AssignmentView extends React.Component {
     timer.clearTimeout(this);
   }
 
-  getNext() {
-    const rands = _.sample(this.props.vocabulary, 2);
-    const answers = rands.map(e => e.word);
-    this.setState(Object.assign({}, rands[0], {
-      answers,
-      suffled_answers: _.shuffle(answers),
-      rightOrWrong: null,
-    }));
-    console.log(this.state);
-  }
-
   onPlaySound(pageData) {
     if (Platform.OS === 'ios') {
       Speech.speak({
@@ -144,6 +133,17 @@ export default class AssignmentView extends React.Component {
         }
       });
     }
+  }
+
+  getNext() {
+    const rands = _.sample(this.props.vocabulary, 2);
+    const answers = rands.map(e => e.word);
+    this.setState(Object.assign({}, rands[0], {
+      answers,
+      suffled_answers: _.shuffle(answers),
+      rightOrWrong: null,
+    }));
+    console.log(this.state);
   }
 
   reply(answer) {
@@ -216,3 +216,13 @@ export default class AssignmentView extends React.Component {
     );
   }
 }
+
+AssignmentView.propTypes = {
+  title: React.PropTypes.string,
+  vocabulary: React.PropTypes.arrayOf(React.PropTypes.object),
+};
+
+AssignmentView.defaultProps = {
+  title: '',
+  vocabulary: [],
+};

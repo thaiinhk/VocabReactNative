@@ -77,10 +77,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Main extends Component {
+export default class MainView extends Component {
   componentDidMount() {
     timer.clearTimeout(this);
-    // AdMobInterstitial.setTestDeviceID('EMULATOR');
     AdMobInterstitial.setAdUnitID(config.admob.ios.interstital);
     timer.setTimeout(this, 'AdMobInterstitial', () => {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd((error) => error && console.log(error)));
@@ -91,7 +90,7 @@ export default class Main extends Component {
     timer.clearTimeout(this);
   }
 
-  _onFetch(page = 1, callback, options) {
+  onFetch(page = 1, callback, options) {
     const header = page;
     const rows = {};
     rows[header] = lessons.slice(LESSON_PER_SECTION * (page - 1), LESSON_PER_SECTION * page);
@@ -105,7 +104,7 @@ export default class Main extends Component {
     }
   }
 
-  _renderRowView(rowData) {
+  renderRowView(rowData) {
     return (
       <TouchableHighlight
         underlayColor="#EEEEEE"
@@ -119,7 +118,7 @@ export default class Main extends Component {
     );
   }
 
-  _renderPaginationWaitingView(paginateCallback) {
+  renderPaginationWaitingView(paginateCallback) {
     return (
       <TouchableHighlight
         underlayColor="#C8C7CC"
@@ -134,7 +133,7 @@ export default class Main extends Component {
     );
   }
 
-  _renderSectionHeaderView(sectionData, sectionID) {
+  renderSectionHeaderView(sectionData, sectionID) {
     console.log(sectionID);
     if (sectionID !== '1') {
       return <AdmobCell />;
@@ -143,7 +142,7 @@ export default class Main extends Component {
     return null;
   }
 
-  _renderPaginationAllLoadedView() {
+  renderPaginationAllLoadedView() {
     return null;
   }
 
@@ -172,8 +171,8 @@ export default class Main extends Component {
       <View style={styles.container}>
         {this.renderToolbar()}
         <GiftedListView
-          rowView={this._renderRowView}
-          onFetch={this._onFetch}
+          rowView={this.renderRowView}
+          onFetch={this.onFetch}
 
           initialListSize={12}
 
@@ -181,12 +180,12 @@ export default class Main extends Component {
           refreshable={false}
 
           withSections={true}
-          sectionHeaderView={this._renderSectionHeaderView}
+          sectionHeaderView={this.renderSectionHeaderView}
 
-          paginationAllLoadedView={this._renderPaginationAllLoadedView}
+          paginationAllLoadedView={this.renderPaginationAllLoadedView}
 
           pagination={true}
-          paginationWaitingView={this._renderPaginationWaitingView}
+          paginationWaitingView={this.renderPaginationWaitingView}
 
           refreshableTintColor="blue"
         />
@@ -196,3 +195,11 @@ export default class Main extends Component {
     );
   }
 }
+
+MainView.propTypes = {
+  title: React.PropTypes.string,
+};
+
+MainView.defaultProps = {
+  title: '',
+};

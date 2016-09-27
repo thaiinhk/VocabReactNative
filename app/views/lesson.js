@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class SettingsView extends React.Component {
+export default class LessonView extends React.Component {
   constructor(props) {
     const dataSource = new ViewPager.DataSource({ pageHasChanged: (p1, p2) => p1 !== p2 });
 
@@ -86,6 +86,7 @@ export default class SettingsView extends React.Component {
   }
 
   onShare(pageData) {
+    console.log(pageData);
     // Share.open({
     //   share_text: pageData.word + ' ' + pageData.pronunciation + ' ' + pageData.translation,
     //   title: pageData.word,
@@ -126,7 +127,7 @@ export default class SettingsView extends React.Component {
     }
   }
 
-  _renderPage(pageData) {
+  renderPage(pageData) {
     return (
       <View style={styles.block}>
         <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(pageData)}>
@@ -183,7 +184,7 @@ export default class SettingsView extends React.Component {
         {this.renderToolbar()}
         <ViewPager
           dataSource={this.state.dataSource}
-          renderPage={(pageData) => this._renderPage(pageData)}
+          renderPage={(pageData) => this.renderPage(pageData)}
         />
 
         <AdmobCell />
@@ -191,3 +192,13 @@ export default class SettingsView extends React.Component {
     );
   }
 }
+
+LessonView.propTypes = {
+  title: React.PropTypes.string,
+  vocabulary: React.PropTypes.arrayOf(React.PropTypes.object),
+};
+
+LessonView.defaultProps = {
+  title: '',
+  vocabulary: [],
+};

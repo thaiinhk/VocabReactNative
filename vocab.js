@@ -11,6 +11,7 @@ import {
 } from 'react-native-router-flux';
 
 // 3rd party libraries
+import { AdMobInterstitial } from 'react-native-admob';
 import DeviceInfo from 'react-native-device-info';
 import GoogleAnalytics from 'react-native-google-analytics-bridge';
 
@@ -24,6 +25,7 @@ import { config } from './app/config';
 GoogleAnalytics.setTrackerId(config.googleAnalytics[Platform.OS]);
 
 if (DeviceInfo.getDeviceName() === 'iPhone Simulator' || DeviceInfo.getManufacturer() === 'Genymotion') {
+  AdMobInterstitial.setTestDeviceID('EMULATOR');
   GoogleAnalytics.setDryRun(true);
 }
 
@@ -42,8 +44,8 @@ const scenes = Actions.create(
   </Scene>
 );
 
-export default class Periods extends React.Component {
-  render() {
-    return <Router scenes={scenes} />;
-  }
-}
+const Periods = function Photos() {
+  return <Router scenes={scenes} />;
+};
+
+export default Periods;
