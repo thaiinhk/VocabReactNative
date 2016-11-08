@@ -24,7 +24,6 @@
     "react-native-speech": "bazzooka/react-native-speech",
     "react-native-timer": "^1.1.2",
     "react-native-vector-icons": "^3.0.0",
-    "react-native-viewpager": "^0.2.13",
     "rn-viewpager": "^1.1.3",
     "underscore": "^1.8.3"
   },

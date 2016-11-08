@@ -99,15 +99,15 @@ export default class LessonView extends React.Component {
 
   renderPage(pageData, i) {
     return (
-      <View key={i} style={styles.block}>
-        <Text style={[styles.wordText, { fontSize: 120 - (7 * pageData.word.length) }]}>{pageData.word}</Text>
-        {pageData.pronunciation && <Text style={styles.pronunciationText}>{`/ ${pageData.pronunciation} /`}</Text>}
-        {pageData.translation && <Text style={styles.translationText}>{pageData.translation}</Text>}
-        {pageData.translation && <Text style={styles.translationText}>{pageData.entranslation}</Text>}
-        <TouchableOpacity onPress={() => this.onPlaySound(pageData)}>
+      <TouchableOpacity key={i} onPress={() => this.onPlaySound(pageData)}>
+        <View style={styles.block}>
+          <Text style={[styles.wordText, { fontSize: 120 - (7 * pageData.word.length) }]}>{pageData.word}</Text>
+          {pageData.pronunciation && <Text style={styles.pronunciationText}>{`/ ${pageData.pronunciation} /`}</Text>}
+          {pageData.translation && <Text style={styles.translationText}>{pageData.translation}</Text>}
+          {pageData.translation && <Text style={styles.translationText}>{pageData.entranslation}</Text>}
           <Icon style={{ marginTop: 20 }} name="play-circle-filled" size={100} color="#4CAF50" />
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
     );
   }
 

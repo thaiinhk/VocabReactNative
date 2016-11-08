@@ -35,6 +35,7 @@ console.ignoredYellowBox = [
   'Warning: Failed propType: SceneView',
   'Possible Unhandled Promise Rejection',
   'ActivityIndicatorIOS is deprecated. Use ActivityIndicator instead.',
+  'Each ViewPager child must be a <View>.',
 ];
 
 const scenes = Actions.create(
