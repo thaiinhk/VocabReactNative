@@ -22,6 +22,7 @@ import AssignmentView from './app/views/assignment';
 
 import { config } from './app/config';
 
+AdMobInterstitial.setAdUnitID(config.admob[Platform.OS].interstital);
 GoogleAnalytics.setTrackerId(config.googleAnalytics[Platform.OS]);
 
 if (DeviceInfo.getDeviceName() === 'iPhone Simulator' || DeviceInfo.getManufacturer() === 'Genymotion') {

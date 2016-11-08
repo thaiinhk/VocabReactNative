@@ -104,10 +104,19 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            storeFile file(VOCAB_RELEASE_STORE_FILE)
+            storePassword VOCAB_RELEASE_STORE_PASSWORD
+            keyAlias VOCAB_RELEASE_KEY_ALIAS
+            keyPassword VOCAB_RELEASE_KEY_PASSWORD
+        }
+    }
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -127,6 +136,7 @@ android {
 
 dependencies {
     compile project(':react-native-vector-icons')
+    compile project(':react-native-speech')
     compile project(':react-native-sound')
     compile project(':react-native-google-analytics-bridge')
     compile project(':react-native-device-info')

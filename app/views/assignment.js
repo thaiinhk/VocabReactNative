@@ -25,8 +25,6 @@ import commonStyle from '../common-styles';
 // Component
 import AdmobCell from './admob';
 
-import { config } from '../config';
-
 const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   block: {
     flex: 1,
@@ -98,22 +96,24 @@ export default class AssignmentView extends React.Component {
         voice: 'th-TH',
         rate: 0.2,
       });
-    } else {
-      // AndroidSpeech.speak({
-      //   text: 'this is ระฆัง',
-      //   pitch: 1.5,
-      //   forceStop : false,
-      //   language : 'th-TH',
-      // });
-
-      const s = new Sound(pageData.sound, Sound.MAIN_BUNDLE, (e) => {
-        if (e) {
-          console.log('error', e);
-        } else {
-          console.log('duration', s.getDuration());
-          s.play();
-        }
-      });
+    } else if (Platform.OS === 'android') {
+      if (pageData.sound) {
+        const s = new Sound(pageData.sound, Sound.MAIN_BUNDLE, (e) => {
+          if (e) {
+            console.log('error', e);
+          } else {
+            console.log('duration', s.getDuration());
+            s.play();
+          }
+        });
+      } else {
+        Speech.speak({
+          text: pageData.word,
+          voice: 'th_TH',
+          rate: 0.2,
+          forceStop: true,
+        });
+      }
     }
   }
 
@@ -134,14 +134,14 @@ export default class AssignmentView extends React.Component {
       console.log('Right');
       this.setState({
         rightOrWrong: true,
-        corrent: ++this.state.corrent,
-        total: ++this.state.total,
+        corrent: this.state.corrent + 1,
+        total: this.state.total + 1,
       });
     } else {
       console.log('Wrong');
       this.setState({
         rightOrWrong: false,
-        total: ++this.state.total,
+        total: this.state.total + 1,
       });
     }
 
@@ -150,8 +150,9 @@ export default class AssignmentView extends React.Component {
   }
 
   popAndAd() {
-    AdMobInterstitial.setAdUnitID(config.admob[Platform.OS].interstital);
-    AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd((error) => error && console.log(error)));
+    if (Math.random() > 0.7) {
+      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
+    }
     Actions.pop();
   }
 
@@ -162,20 +163,23 @@ export default class AssignmentView extends React.Component {
           statusBar={{ style: 'light-content', tintColor: '#4CAF50' }}
           style={styles.navigatorBarIOS}
           title={{ title: this.props.title, tintColor: 'white' }}
-          leftButton={<Icon
-            style={styles.navigatorLeftButton}
-            name="arrow-back"
-            size={26}
-            color="white"
-            onPress={() => this.popAndAd()}
-          />}
+          leftButton={
+            <TouchableOpacity onPress={() => this.popAndAd()}>
+              <Icon
+                style={styles.navigatorLeftButton}
+                name="arrow-back"
+                size={26}
+                color="white"
+              />
+            </TouchableOpacity>
+          }
         />
       );
     } else if (Platform.OS === 'android') {
       return (
         <Icon.ToolbarAndroid
           navIconName="arrow-back"
-          onIconClicked={Actions.pop}
+          onIconClicked={this.popAndAd}
           style={styles.toolbar}
           title={this.props.title}
           titleColor="white"

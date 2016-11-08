@@ -3,6 +3,8 @@ rootProject.name = 'Vocab'
 include ':app'
 include ':react-native-vector-icons'
 project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
+include ':react-native-speech'
+project(':react-native-speech').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-speech/android')
 include ':react-native-sound'
 project(':react-native-sound').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sound/android')
 include ':react-native-google-analytics-bridge'

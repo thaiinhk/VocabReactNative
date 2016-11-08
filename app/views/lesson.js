@@ -9,14 +9,14 @@ import {
 
 // 3rd party libraries
 import { Actions } from 'react-native-router-flux';
+import { AdMobInterstitial } from 'react-native-admob';
 import FoundationIcon from 'react-native-vector-icons/Foundation';
 import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 import Sound from 'react-native-sound';
-import ViewPager from 'react-native-viewpager';
+import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
 import Speech from 'react-native-speech';
-// import tts from 'react-native-android-speech';
 
 import commonStyle from '../common-styles';
 
@@ -27,15 +27,12 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   block: {
     flex: 1,
     backgroundColor: 'white',
-    margin: 10,
+    // margin: 10,
     paddingBottom: 20,
     borderRightWidth: StyleSheet.hairlineWidth * 2,
     borderRightColor: '#CCCCCC',
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderBottomColor: '#CCCCCC',
-  },
-  center: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -52,19 +49,9 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
 }));
 
 export default class LessonView extends React.Component {
-  constructor(props) {
-    const dataSource = new ViewPager.DataSource({ pageHasChanged: (p1, p2) => p1 !== p2 });
-
-    super(props);
-
-    this.state = {
-      dataSource: dataSource.cloneWithPages(this.props.vocabulary),
-    };
-  }
-
   componentDidMount() {
     Speech.supportedVoices()
-      .then(locales => {
+      .then((locales) => {
         console.log('Supported voices', locales);  // ["ar-SA", "en-ZA", "nl-BE", "en-AU", "th-TH", ...]
       });
   }
@@ -82,34 +69,43 @@ export default class LessonView extends React.Component {
         voice: 'th-TH',
         rate: 0.2,
       });
-    } else {
-      // tts.speak({
-      //   text: 'this is ระฆัง',
-      //   pitch: 1.5,
-      //   forceStop : false,
-      //   language : 'th-TH',
-      // });
-
-      const s = new Sound(pageData.sound, Sound.MAIN_BUNDLE, (e) => {
-        if (e) {
-          console.log('error', e);
-        } else {
-          console.log('duration', s.getDuration());
-          s.play();
-        }
-      });
+    } else if (Platform.OS === 'android') {
+      if (pageData.sound) {
+        const s = new Sound(pageData.sound, Sound.MAIN_BUNDLE, (e) => {
+          if (e) {
+            console.log('error', e);
+          } else {
+            console.log('duration', s.getDuration());
+            s.play();
+          }
+        });
+      } else {
+        Speech.speak({
+          text: pageData.word,
+          voice: 'th_TH',
+          rate: 0.2,
+          forceStop: true,
+        });
+      }
     }
   }
 
-  renderPage(pageData) {
+  popAndAd() {
+    if (Math.random() > 0.9) {
+      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
+    }
+    Actions.pop();
+  }
+
+  renderPage(pageData, i) {
     return (
-      <View style={styles.block}>
-        <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(pageData)}>
-          <Text style={[styles.wordText, { fontSize: 120 - (7 * pageData.word.length) }]}>{pageData.word}</Text>
-          {pageData.pronunciation && <Text style={styles.pronunciationText}>{`/ ${pageData.pronunciation} /`}</Text>}
-          {pageData.translation && <Text style={styles.translationText}>{pageData.translation}</Text>}
-          {pageData.translation && <Text style={styles.translationText}>{pageData.entranslation}</Text>}
-          <Icon style={{ marginTop: 20 }} name="play-circle-filled" size={80} color="#4CAF50" />
+      <View key={i} style={styles.block}>
+        <Text style={[styles.wordText, { fontSize: 120 - (7 * pageData.word.length) }]}>{pageData.word}</Text>
+        {pageData.pronunciation && <Text style={styles.pronunciationText}>{`/ ${pageData.pronunciation} /`}</Text>}
+        {pageData.translation && <Text style={styles.translationText}>{pageData.translation}</Text>}
+        {pageData.translation && <Text style={styles.translationText}>{pageData.entranslation}</Text>}
+        <TouchableOpacity onPress={() => this.onPlaySound(pageData)}>
+          <Icon style={{ marginTop: 20 }} name="play-circle-filled" size={100} color="#4CAF50" />
         </TouchableOpacity>
       </View>
     );
@@ -122,15 +118,20 @@ export default class LessonView extends React.Component {
           statusBar={{ style: 'light-content', tintColor: '#4CAF50' }}
           style={styles.navigatorBarIOS}
           title={{ title: this.props.title, tintColor: 'white' }}
-          leftButton={<Icon style={styles.navigatorLeftButton} name="arrow-back" size={26} color="white" onPress={() => Actions.pop()} />}
+          leftButton={
+            <TouchableOpacity onPress={() => this.popAndAd()}>
+              <Icon style={styles.navigatorLeftButton} name="arrow-back" size={26} color="white" />
+            </TouchableOpacity>
+          }
           rightButton={
-            <FoundationIcon
-              style={styles.navigatorRightButton}
-              name="clipboard-pencil"
-              size={26}
-              color="white"
-              onPress={() => Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary })}
-            />
+            <TouchableOpacity onPress={() => Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary })}>
+              <FoundationIcon
+                style={styles.navigatorRightButton}
+                name="clipboard-pencil"
+                size={26}
+                color="white"
+              />
+            </TouchableOpacity>
           }
         />
       );
@@ -138,14 +139,14 @@ export default class LessonView extends React.Component {
       return (
         <Icon.ToolbarAndroid
           navIconName="arrow-back"
-          onIconClicked={Actions.pop}
+          onIconClicked={this.popAndAd}
           style={styles.toolbar}
           title={this.props.title}
           titleColor="white"
           actions={[
             { title: 'Test', iconName: 'assignment', iconSize: 26, show: 'always' },
           ]}
-          onActionSelected={(position) => this.onActionSelected(position)}
+          onActionSelected={position => this.onActionSelected(position)}
         />
       );
     }
@@ -156,10 +157,12 @@ export default class LessonView extends React.Component {
     return (
       <View style={styles.container}>
         {this.renderToolbar()}
-        <ViewPager
-          dataSource={this.state.dataSource}
-          renderPage={(pageData) => this.renderPage(pageData)}
-        />
+        <IndicatorViewPager
+          style={{ flex: 1 }}
+          indicator={<PagerDotIndicator pageCount={Math.max(this.props.vocabulary.length, 10)} />}
+        >
+          {this.props.vocabulary.map((object, i) => this.renderPage(object, i))}
+        </IndicatorViewPager>
 
         <AdmobCell />
       </View>

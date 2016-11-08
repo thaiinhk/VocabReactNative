@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.omega.speech.SpeechSynthesizerPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new VectorIconsPackage(),
+            new SpeechSynthesizerPackage(),
             new RNSoundPackage(),
             new GoogleAnalyticsBridgePackage(),
             new RNDeviceInfo(),

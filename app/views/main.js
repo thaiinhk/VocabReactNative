@@ -19,7 +19,6 @@ import timer from 'react-native-timer';
 // Component
 import AdmobCell from './admob';
 
-import { config } from '../config';
 import commonStyle from '../common-styles';
 
 // Data
@@ -60,9 +59,8 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
 export default class MainView extends Component {
   componentDidMount() {
     timer.clearTimeout(this);
-    AdMobInterstitial.setAdUnitID(config.admob[Platform.OS].interstital);
     timer.setTimeout(this, 'AdMobInterstitial', () => {
-      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd((error) => error && console.log(error)));
+      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
     }, 1000);
   }
 
@@ -87,7 +85,7 @@ export default class MainView extends Component {
   renderRowView(rowData) {
     return (
       <TouchableHighlight
-        underlayColor="#EEEEEE"
+        underlayColor="#F1F8E9"
         onPress={() => Actions.lesson(rowData)}
       >
         <View style={styles.row}>
