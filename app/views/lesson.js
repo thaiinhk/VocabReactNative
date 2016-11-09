@@ -88,6 +88,7 @@ export default class LessonView extends React.Component {
         });
       }
     }
+    tracker.trackEvent('user-action', 'play-lesson-sound', { label: pageData.word });
   }
 
   popAndAd() {

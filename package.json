@@ -17,7 +17,7 @@
     "react-native-admob": "^1.1.5",
     "react-native-device-info": "^0.9.6",
     "react-native-gifted-listview": "^0.0.15",
-    "react-native-google-analytics-bridge": "^4.0.0",
+    "react-native-google-analytics-bridge": "^4.0.1",
     "react-native-navbar": "^1.5.4",
     "react-native-router-flux": "^3.36.0",
     "react-native-share": "^1.0.17",

@@ -115,6 +115,7 @@ export default class AssignmentView extends React.Component {
         });
       }
     }
+    tracker.trackEvent('user-action', 'play-assignment-sound', { label: pageData.word });
   }
 
   getNext() {
@@ -137,16 +138,18 @@ export default class AssignmentView extends React.Component {
         corrent: this.state.corrent + 1,
         total: this.state.total + 1,
       });
+      tracker.trackEvent('user-action', 'answer-assignment', { label: 'correct' });
     } else {
       console.log('Wrong');
       this.setState({
         rightOrWrong: false,
         total: this.state.total + 1,
       });
+      tracker.trackEvent('user-action', 'answer-assignment', { label: 'incorrect' });
     }
 
     // this.getNext();
-    timer.setTimeout('next', () => this.getNext(), 1000);
+    timer.setTimeout('next', () => this.getNext(), 500);
   }
 
   popAndAd() {
