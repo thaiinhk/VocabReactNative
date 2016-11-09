@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -11,7 +12,6 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
 import GiftedListView from 'react-native-gifted-listview';
-import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 import timer from 'react-native-timer';
@@ -23,6 +23,7 @@ import commonStyle from '../common-styles';
 
 // Data
 import { lessons } from '../data/lessons';
+import tracker from '../tracker';
 
 const LESSON_PER_SECTION = 20;
 
@@ -66,6 +67,12 @@ export default class MainView extends Component {
 
   componentWillUnmount() {
     timer.clearTimeout(this);
+  }
+
+  onActionSelected(position) {
+    if (position === 0) {  // index of 'Info'
+      Actions.info();
+    }
   }
 
   onFetch(page = 1, callback, options) {
@@ -132,6 +139,11 @@ export default class MainView extends Component {
           statusBar={{ style: 'light-content', tintColor: '#4CAF50' }}
           style={styles.navigatorBarIOS}
           title={{ title: this.props.title, tintColor: 'white' }}
+          rightButton={
+            <TouchableOpacity onPress={Actions.info}>
+              <Icon style={styles.navigatorRightButton} name="info" size={26} color="white" />
+            </TouchableOpacity>
+          }
         />
       );
     } else if (Platform.OS === 'android') {
@@ -140,13 +152,17 @@ export default class MainView extends Component {
           style={styles.toolbar}
           title={this.props.title}
           titleColor="white"
+          actions={[
+            { title: 'Info', iconName: 'info', iconSize: 26, show: 'always' },
+          ]}
+          onActionSelected={position => this.onActionSelected(position)}
         />
       );
     }
   }
 
   render() {
-    GoogleAnalytics.trackScreenView('main');
+    tracker.trackScreenView('main');
     return (
       <View style={styles.container}>
         {this.renderToolbar()}

@@ -12,7 +12,6 @@ import _ from 'underscore';
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
 import Button from 'apsl-react-native-button';
-import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 // import Share from 'react-native-share';
@@ -20,10 +19,11 @@ import Sound from 'react-native-sound';
 import Speech from 'react-native-speech';
 import timer from 'react-native-timer';
 
-import commonStyle from '../common-styles';
-
 // Component
 import AdmobCell from './admob';
+
+import commonStyle from '../common-styles';
+import tracker from '../tracker';
 
 const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   block: {
@@ -189,7 +189,7 @@ export default class AssignmentView extends React.Component {
   }
 
   render() {
-    GoogleAnalytics.trackScreenView('assignment');
+    tracker.trackScreenView('assignment');
     return (
       <View style={styles.container}>
         {this.renderToolbar()}

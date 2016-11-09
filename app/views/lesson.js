@@ -11,17 +11,17 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
 import FoundationIcon from 'react-native-vector-icons/Foundation';
-import GoogleAnalytics from 'react-native-google-analytics-bridge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 import Sound from 'react-native-sound';
 import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
 import Speech from 'react-native-speech';
 
-import commonStyle from '../common-styles';
-
 // Component
 import AdmobCell from './admob';
+
+import commonStyle from '../common-styles';
+import tracker from '../tracker';
 
 const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   block: {
@@ -153,7 +153,7 @@ export default class LessonView extends React.Component {
   }
 
   render() {
-    GoogleAnalytics.trackScreenView('lesson');
+    tracker.trackScreenView('main');
     return (
       <View style={styles.container}>
         {this.renderToolbar()}
