@@ -12,6 +12,7 @@ import DeviceInfo from 'react-native-device-info';
 // Views
 import MainView from './app/views/main';
 import LessonView from './app/views/lesson';
+import CardView from './app/views/card';
 import AssignmentView from './app/views/assignment';
 import InfoView from './app/views/info';
 
@@ -35,6 +36,7 @@ const scenes = Actions.create(
   <Scene key="root" hideNavBar={true}>
     <Scene key="main" title="Vocab" component={MainView} initial={true} />
     <Scene key="lesson" title="Lesson" component={LessonView} />
+    <Scene key="card" title="Card" component={CardView} />
     <Scene key="assignment" title="Assignment" component={AssignmentView} />
     <Scene key="info" title="Info" component={InfoView} direction="vertical" />
   </Scene>

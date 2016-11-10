@@ -795,6 +795,273 @@ const fruits = [{
   // sound: 'http://www.thai-language.com/mp3/E132132.mp3',
 }];
 
+const furniture = [{
+  word: 'โต๊ะทำงาน',
+  pronunciation: 'dto tham ngaan',
+  translation: '辦公桌',
+  entranslation: 'workers’ desk',
+}, {
+  word: 'ตู้เสื้อผ้า',
+  pronunciation: 'dtuu seuua phaa',
+  translation: '衣櫃',
+  entranslation: 'clothes closet',
+}, {
+  word: 'หมอน',
+  pronunciation: 'maawn',
+  translation: '枕頭',
+  entranslation: 'cushion',
+}, {
+  word: 'เตียง',
+  pronunciation: 'dtiiang',
+  translation: '床',
+  entranslation: 'bed',
+}, {
+  word: 'โต๊ะเครื่องแป้ง',
+  pronunciation: 'dto khreuuang bpaaeng',
+  translation: '枕頭',
+  entranslation: 'dresser',
+}, {
+  word: 'กระจก',
+  pronunciation: 'gra johk',
+  translation: '鏡子',
+  entranslation: 'mirror',
+}, {
+  word: 'โต๊ะรับแขก',
+  pronunciation: 'to rap khaek',
+  translation: '茶几',
+  entranslation: 'coffee table',
+}, {
+  word: 'โซฟา',
+  pronunciation: 'so:h faa',
+  translation: '沙發',
+  entranslation: 'sofa',
+}];
+
+const weather = [{
+  word: 'พยากรณ์อากาศ',
+  pronunciation: 'pha yaa gaawn aa gaat',
+  translation: '天氣預報',
+  entranslation: 'weather forecast',
+}, {
+  word: 'ฝนตก',
+  pronunciation: 'fohn dtohk',
+  translation: '下雨',
+  entranslation: 'raining',
+}, {
+  word: 'ท้องฟ้าแจ่มใส',
+  pronunciation: 'thaawng faa jaem sai',
+  translation: '天氣晴朗',
+  entranslation: 'sky is clear',
+}, {
+  word: 'เมฆ',
+  pronunciation: 'maehk',
+  translation: '雲',
+  entranslation: 'cloud',
+}, {
+  word: 'ฟ้าผ่า',
+  pronunciation: 'faa phaa',
+  translation: '閃電',
+  entranslation: 'lightning',
+}, {
+  word: 'ฟ้าร้อง',
+  pronunciation: 'fa rong',
+  translation: '雷鳴',
+  entranslation: 'thunder',
+}, {
+  word: 'ร่ม',
+  pronunciation: 'rohm',
+  translation: '傘',
+  entranslation: 'umbrella',
+}, {
+  word: 'เปียก',
+  pronunciation: 'bpiiak',
+  translation: '濕',
+  entranslation: 'wet',
+}, {
+  word: 'หลบฟน',
+  pronunciation: 'lohp fohn',
+  translation: '避雨',
+  entranslation: 'shelter from the rain',
+}, {
+  word: 'รุ้งกินน้ำ',
+  pronunciation: 'roong gin naam',
+  translation: '彩虹',
+  entranslation: 'rainbow',
+}, {
+  word: 'ท้องฟ้า',
+  pronunciation: 'thaawng faa',
+  translation: '天空',
+  entranslation: 'sky',
+}];
+
+const colors = [{
+  word: 'สีแดง',
+  pronunciation: 'see daaeng',
+  translation: '紅色',
+  entranslation: 'red',
+}, {
+  word: 'สีส้ม',
+  pronunciation: 'see sohm',
+  translation: '橙色',
+  entranslation: 'orange',
+}, {
+  word: 'สีเหลือง',
+  pronunciation: 'see leuuang',
+  translation: '黄色',
+  entranslation: 'yellow',
+}, {
+  word: 'สีเขียว',
+  pronunciation: 'see khiaao',
+  translation: '綠色',
+  entranslation: 'green',
+}, {
+  word: 'สีฟ้า',
+  pronunciation: 'see faa',
+  translation: '藍色',
+  entranslation: 'blue',
+}, {
+  word: 'สีน้ำเงิน',
+  pronunciation: 'see nam ngern',
+  translation: '深藍色',
+  entranslation: 'navy blue',
+}, {
+  word: 'สีม่วง',
+  pronunciation: 'see muaang',
+  translation: '紫色',
+  entranslation: 'purple',
+}, {
+  word: 'สีชมพู',
+  pronunciation: 'see chohm phuu',
+  translation: '粉紅色',
+  entranslation: 'pink',
+}];
+
+const days = [{
+  word: 'วัน',
+  pronunciation: 'wan',
+  translation: '星期',
+  entranslation: 'day',
+}, {
+  word: 'วันจันทร์',
+  pronunciation: 'wan jan',
+  translation: '星期一',
+  entranslation: 'Monday',
+}, {
+  word: 'วันอังคาร',
+  pronunciation: 'wan ang khaan',
+  translation: '星期二',
+  entranslation: 'Tuesday',
+}, {
+  word: 'วันพุธ',
+  pronunciation: 'wan phoot',
+  translation: '星期三',
+  entranslation: 'Wednesday',
+}, {
+  word: 'วันพฤหัสบดี',
+  pronunciation: 'wan phreu hat sa baaw dee',
+  translation: '星期四',
+  entranslation: 'Thursday',
+}, {
+  word: 'วันศุกร์',
+  pronunciation: 'wan sook',
+  translation: '星期五',
+  entranslation: 'Friday',
+}, {
+  word: 'วันเสาร์',
+  pronunciation: 'wan sao',
+  translation: '星期六',
+  entranslation: 'Saturday',
+}, {
+  word: 'วันอาทิตย์',
+  pronunciation: 'wan aa thit',
+  translation: '星期日',
+  entranslation: 'Sunday',
+}];
+
+const family = [{
+  word: 'ผู้ชาย',
+  pronunciation: 'phuu chaai',
+  translation: '男人',
+  entranslation: 'man',
+}, {
+  word: 'ผู้หญิง',
+  pronunciation: 'phuu ying',
+  translation: '女人',
+  entranslation: 'woman',
+}, {
+  word: 'พ่อ',
+  pronunciation: 'phaaw',
+  translation: '父親',
+  entranslation: 'father',
+}, {
+  word: 'แม่',
+  pronunciation: 'maae',
+  translation: '母親',
+  entranslation: 'mother',
+}, {
+  word: 'พี่ชาย',
+  pronunciation: 'phee chaai',
+  translation: '哥哥',
+  entranslation: 'older brother',
+}, {
+  word: 'น้องชาย',
+  pronunciation: 'naawng chaai',
+  translation: '弟弟',
+  entranslation: 'younger brother',
+}, {
+  word: 'พี่สาว',
+  pronunciation: 'phee saao',
+  translation: '姐姐',
+  entranslation: 'older sister',
+}, {
+  word: 'น้องสาว',
+  pronunciation: 'naawng saao',
+  translation: '妹妹',
+  entranslation: 'younger sister',
+}, {
+  word: 'เด็กผู้ชาย',
+  pronunciation: 'dek phuu chaai',
+  translation: '男孩',
+  entranslation: 'boy',
+}, {
+  word: 'เด็กผู้หญิง',
+  pronunciation: 'dek phuu ying',
+  translation: '女孩',
+  entranslation: 'girl',
+}];
+
+const verbs = [{
+  word: 'พูด',
+  pronunciation: 'phuut',
+  translation: '說',
+  entranslation: 'speak',
+}, {
+  word: 'เขียน',
+  pronunciation: 'khiian',
+  translation: '寫',
+  entranslation: 'write',
+}, {
+  word: 'ขับ',
+  pronunciation: 'khap',
+  translation: '開車',
+  entranslation: 'drive',
+}, {
+  word: 'รัก',
+  pronunciation: 'rak',
+  translation: '喜歡',
+  entranslation: 'love',
+}, {
+  word: 'ให้',
+  pronunciation: 'hai',
+  translation: '給',
+  entranslation: 'give',
+}, {
+  word: 'ยิ้ม',
+  pronunciation: 'yim',
+  translation: '笑',
+  entranslation: 'smile',
+}];
+
 exports.lessons = [{
   title: '低輔音（I）',
   entitle: 'Low consonants',
@@ -842,12 +1109,42 @@ exports.lessons = [{
   vocabulary: numbers3,
 }, {
   title: '交通運輸',
-  entitle: 'Transportations',
+  entitle: 'Transportation',
   thtitle: 'การขนส่ง',
   vocabulary: transportations,
 }, {
   title: '水果',
-  entitle: 'Fruits',
+  entitle: 'Fruit',
   thtitle: 'ผลไม้',
   vocabulary: fruits,
+}, {
+  title: '傢俱',
+  entitle: 'Furniture',
+  thtitle: 'เฟอร์นิเจอร์',
+  vocabulary: furniture,
+}, {
+  title: '天氣',
+  entitle: 'Weather',
+  thtitle: 'อากาศ',
+  vocabulary: weather,
+}, {
+  title: '顏色',
+  entitle: 'Color',
+  thtitle: 'สี',
+  vocabulary: colors,
+}, {
+  title: '星期',
+  entitle: 'Day',
+  thtitle: 'วัน',
+  vocabulary: days,
+}, {
+  title: '家庭',
+  entitle: 'Family',
+  thtitle: 'ครอบครัว',
+  vocabulary: family,
+}, {
+  title: '動詞',
+  entitle: 'Verb',
+  thtitle: 'กริยา',
+  vocabulary: verbs,
 }];

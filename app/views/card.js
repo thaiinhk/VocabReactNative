@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ListView,
   Platform,
   StyleSheet,
   Text,
@@ -9,9 +8,10 @@ import {
 } from 'react-native';
 
 // 3rd party libraries
+import _ from 'underscore';
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
-import ActionButton from 'react-native-action-button';
+import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 import Sound from 'react-native-sound';
@@ -26,6 +26,7 @@ import tracker from '../tracker';
 const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   block: {
     flex: 1,
+    margin: 10,
     backgroundColor: 'white',
     paddingBottom: 20,
     borderRightWidth: StyleSheet.hairlineWidth * 2,
@@ -35,43 +36,38 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  row: {
-    padding: 6,
-    paddingLeft: 20,
-    marginHorizontal: 10,
-    marginVertical: 5,
-    justifyContent: 'center',
-    borderRightWidth: StyleSheet.hairlineWidth * 2,
-    borderRightColor: '#CCCCCC',
-    borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: '#CCCCCC',
-    backgroundColor: 'white',
-  },
   wordText: {
-    fontSize: 18,
+    fontSize: 120,
+  },
+  pronunciationText: {
+    fontSize: 22,
+    marginTop: 20,
   },
   translationText: {
-    fontSize: 14,
-    lineHeight: 30,
-  },
-  actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white',
+    fontSize: 28,
   },
 }));
 
-export default class LessonView extends React.Component {
+export default class CardView extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      dataSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 }),
+      vocabulary: this.props.vocabulary,
     };
   }
 
   componentDidMount() {
-    this.prepareRows();
+    Speech.supportedVoices()
+      .then((locales) => {
+        console.log('Supported voices', locales);  // ["ar-SA", "en-ZA", "nl-BE", "en-AU", "th-TH", ...]
+      });
+  }
+
+  onActionSelected(position) {
+    if (position === 0) {  // index of 'Shuffle'
+      this.shuffle();
+    }
   }
 
   onPlaySound(pageData) {
@@ -103,17 +99,32 @@ export default class LessonView extends React.Component {
     tracker.trackEvent('user-action', 'play-card-sound', { label: pageData.word });
   }
 
-  prepareRows() {
+  shuffle() {
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(this.props.vocabulary),
+      vocabulary: _.shuffle(this.state.vocabulary),
     });
+    tracker.trackEvent('user-action', 'shuffle-card', { label: this.props.title });
   }
 
   popAndAd() {
-    if (Math.random() > 0.9) {
+    if (Math.random() > 0.8) {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
     }
     Actions.pop();
+  }
+
+  renderPage(pageData, i) {
+    return (
+      <TouchableOpacity key={i} onPress={() => this.onPlaySound(pageData)}>
+        <View style={styles.block}>
+          <Text style={[styles.wordText, { fontSize: 120 - (7 * pageData.word.length) }]}>{pageData.word}</Text>
+          {pageData.pronunciation && <Text style={styles.pronunciationText}>{`/ ${pageData.pronunciation} /`}</Text>}
+          {pageData.translation && <Text style={styles.translationText}>{pageData.translation}</Text>}
+          {pageData.translation && <Text style={styles.translationText}>{pageData.entranslation}</Text>}
+          <Icon style={{ marginTop: 20 }} name="play-circle-filled" size={100} color="#4CAF50" />
+        </View>
+      </TouchableOpacity>
+    );
   }
 
   renderToolbar() {
@@ -128,6 +139,16 @@ export default class LessonView extends React.Component {
               <Icon style={styles.navigatorLeftButton} name="arrow-back" size={26} color="white" />
             </TouchableOpacity>
           }
+          rightButton={
+            <TouchableOpacity onPress={() => this.shuffle()}>
+              <Icon
+                style={styles.navigatorRightButton}
+                name="shuffle"
+                size={26}
+                color="white"
+              />
+            </TouchableOpacity>
+          }
         />
       );
     } else if (Platform.OS === 'android') {
@@ -138,45 +159,38 @@ export default class LessonView extends React.Component {
           style={styles.toolbar}
           title={this.props.title}
           titleColor="white"
+          actions={[
+            { title: 'Shuffle', iconName: 'shuffle', iconSize: 26, show: 'always' },
+          ]}
+          onActionSelected={position => this.onActionSelected(position)}
         />
       );
     }
   }
 
   render() {
-    tracker.trackScreenView('lesson');
+    tracker.trackScreenView('card');
     return (
       <View style={styles.container}>
         {this.renderToolbar()}
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={rowData => <TouchableOpacity onPress={() => this.onPlaySound(rowData)}>
-            <View style={styles.row}>
-              <Text style={styles.wordText}>{rowData.word}</Text>
-              {(rowData.translation || rowData.entranslation) && <Text style={styles.translationText}>{rowData.translation} {rowData.entranslation}</Text>}
-            </View>
-          </TouchableOpacity>}
-        />
+        <IndicatorViewPager
+          style={{ flex: 1 }}
+          indicator={<PagerDotIndicator pageCount={Math.min(this.state.vocabulary.length, 10)} />}
+        >
+          {this.state.vocabulary.map((object, i) => this.renderPage(object, i))}
+        </IndicatorViewPager>
         <AdmobCell />
-        <ActionButton buttonColor="#4CAF50">
-          <ActionButton.Item buttonColor="#9B59B6" title="Test／測驗" onPress={() => Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary })}>
-            <Icon name="assignment" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor="#3498DB" title="Flash Card／卡片" onPress={() => Actions.card({ title: this.props.title, vocabulary: this.props.vocabulary })}>
-            <Icon name="layers" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-        </ActionButton>
       </View>
     );
   }
 }
 
-LessonView.propTypes = {
+CardView.propTypes = {
   title: React.PropTypes.string,
   vocabulary: React.PropTypes.arrayOf(React.PropTypes.object),
 };
 
-LessonView.defaultProps = {
+CardView.defaultProps = {
   title: '',
   vocabulary: [],
 };
