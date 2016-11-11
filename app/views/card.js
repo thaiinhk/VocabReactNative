@@ -12,6 +12,7 @@ import _ from 'underscore';
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
 import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
+import FlipCard from 'react-native-flip-card';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 import Sound from 'react-native-sound';
@@ -24,7 +25,7 @@ import commonStyle from '../common-styles';
 import tracker from '../tracker';
 
 const styles = StyleSheet.create(Object.assign({}, commonStyle, {
-  block: {
+  card: {
     flex: 1,
     margin: 10,
     backgroundColor: 'white',
@@ -36,15 +37,26 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
     justifyContent: 'center',
     alignItems: 'center',
   },
+  textBlock: {
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  playBlock: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   wordText: {
     fontSize: 120,
   },
   pronunciationText: {
     fontSize: 22,
-    marginTop: 20,
+    lineHeight: 42,
   },
   translationText: {
     fontSize: 28,
+    lineHeight: 42,
   },
 }));
 
@@ -115,15 +127,37 @@ export default class CardView extends React.Component {
 
   renderPage(pageData, i) {
     return (
-      <TouchableOpacity key={i} onPress={() => this.onPlaySound(pageData)}>
-        <View style={styles.block}>
-          <Text style={[styles.wordText, { fontSize: 120 - (7 * pageData.word.length) }]}>{pageData.word}</Text>
-          {pageData.pronunciation && <Text style={styles.pronunciationText}>{`/ ${pageData.pronunciation} /`}</Text>}
-          {pageData.translation && <Text style={styles.translationText}>{pageData.translation}</Text>}
-          {pageData.translation && <Text style={styles.translationText}>{pageData.entranslation}</Text>}
-          <Icon style={{ marginTop: 20 }} name="play-circle-filled" size={100} color="#4CAF50" />
+      <FlipCard
+        key={i}
+        flipHorizontal={true}
+        flipVertical={false}
+        style={{ borderWidth: 0 }}
+      >
+        {/* Face Side */}
+        <View style={styles.card}>
+          <View style={styles.textBlock}>
+            <Text style={[styles.wordText, { fontSize: 120 - (6 * pageData.word.length) }]}>{pageData.word}</Text>
+          </View>
+          <View style={styles.playBlock}>
+            <TouchableOpacity onPress={() => this.onPlaySound(pageData)}>
+              <Icon name="play-circle-filled" size={100} color="#4CAF50" />
+            </TouchableOpacity>
+          </View>
         </View>
-      </TouchableOpacity>
+        {/* Back Side */}
+        <View style={styles.card}>
+          <View style={styles.textBlock}>
+            {pageData.pronunciation && <Text style={styles.pronunciationText}>{`/ ${pageData.pronunciation} /`}</Text>}
+            {pageData.translation && <Text style={styles.translationText}>{pageData.translation}</Text>}
+            {pageData.translation && <Text style={styles.translationText}>{pageData.entranslation}</Text>}
+          </View>
+          <View style={styles.playBlock}>
+            <TouchableOpacity onPress={() => this.onPlaySound(pageData)}>
+              <Icon name="play-circle-filled" size={100} color="#4CAF50" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </FlipCard>
     );
   }
 
