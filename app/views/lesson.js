@@ -162,7 +162,7 @@ export default class LessonView extends React.Component {
           <ActionButton.Item buttonColor="#9B59B6" title="Test／測驗" onPress={() => Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary })}>
             <Icon name="assignment" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor="#3498DB" title="Flash Card／卡片" onPress={() => Actions.card({ title: this.props.title, vocabulary: this.props.vocabulary })}>
+          <ActionButton.Item buttonColor="#3498DB" title="Flash Card／閃卡" onPress={() => Actions.card({ title: this.props.title, vocabulary: this.props.vocabulary })}>
             <Icon name="layers" style={styles.actionButtonIcon} />
           </ActionButton.Item>
         </ActionButton>

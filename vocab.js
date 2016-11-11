@@ -36,8 +36,8 @@ const scenes = Actions.create(
   <Scene key="root" hideNavBar={true}>
     <Scene key="main" title="Vocab" component={MainView} initial={true} />
     <Scene key="lesson" title="Lesson" component={LessonView} />
-    <Scene key="card" title="Card" component={CardView} />
-    <Scene key="assignment" title="Assignment" component={AssignmentView} />
+    <Scene key="card" title="Card" component={CardView} direction="vertical" />
+    <Scene key="assignment" title="Assignment" component={AssignmentView} direction="vertical" />
     <Scene key="info" title="Info" component={InfoView} direction="vertical" />
   </Scene>
 );

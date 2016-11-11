@@ -169,12 +169,7 @@ export default class AssignmentView extends React.Component {
           title={{ title: this.props.title, tintColor: 'white' }}
           leftButton={
             <TouchableOpacity onPress={() => this.popAndAd()}>
-              <Icon
-                style={styles.navigatorLeftButton}
-                name="arrow-back"
-                size={26}
-                color="white"
-              />
+              <Icon style={styles.navigatorLeftButton} name="close" size={26} color="white" />
             </TouchableOpacity>
           }
         />
