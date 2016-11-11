@@ -9,6 +9,7 @@ import {
 
 // 3rd party libraries
 import _ from 'underscore';
+import * as Animatable from 'react-native-animatable';
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
 import Button from 'apsl-react-native-button';
@@ -199,9 +200,13 @@ export default class AssignmentView extends React.Component {
         <View style={styles.block}>
           <Text style={styles.scoreText}>{this.state.corrent} / {this.state.total}</Text>
           <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(this.state)}>
-            <Icon name="play-circle-filled" size={100} color="#4CAF50" />
-            {this.state.rightOrWrong === true && <Icon name="check" size={60} color="#4CAF50" />}
-            {this.state.rightOrWrong === false && <Icon name="close" size={60} color="#F44336" />}
+            <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
+              <Icon name="play-circle-filled" size={100} color="#4CAF50" />
+            </View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              {this.state.rightOrWrong === true && <Animatable.View animation="fadeOut" duration={500}><Icon name="check" size={80} color="#4CAF50" /></Animatable.View>}
+              {this.state.rightOrWrong === false && <Animatable.View animation="fadeOut" duration={500}><Icon name="close" size={80} color="#F44336" /></Animatable.View>}
+            </View>
           </TouchableOpacity>
         </View>
         <View style={{ flexDirection: 'row' }}>
