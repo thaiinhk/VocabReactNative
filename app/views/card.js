@@ -47,9 +47,6 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  wordText: {
-    fontSize: 120,
-  },
   pronunciationText: {
     fontSize: 22,
     lineHeight: 42,
@@ -136,7 +133,7 @@ export default class CardView extends React.Component {
         {/* Face Side */}
         <View style={styles.card}>
           <View style={styles.textBlock}>
-            <Text style={[styles.wordText, { fontSize: 120 - (6 * pageData.word.length) }]}>{pageData.word}</Text>
+            <Text style={{ fontSize: 120 - (6 * pageData.word.length) }}>{pageData.word}</Text>
           </View>
           <View style={styles.playBlock}>
             <TouchableOpacity onPress={() => this.onPlaySound(pageData)}>

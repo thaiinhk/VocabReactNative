@@ -159,7 +159,10 @@ export default class LessonView extends React.Component {
         />
         <AdmobCell />
         <ActionButton buttonColor="#4CAF50">
-          <ActionButton.Item buttonColor="#9B59B6" title="Test／測驗" onPress={() => Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary })}>
+          <ActionButton.Item buttonColor="#9B59B6" title="Listening test／聽力" onPress={() => Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary, testType: 'LISTENING' })}>
+            <Icon name="hearing" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor="#00BCD4" title="Matching test／翻譯" onPress={() => Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary, testType: 'MATCHING' })}>
             <Icon name="assignment" style={styles.actionButtonIcon} />
           </ActionButton.Item>
           <ActionButton.Item buttonColor="#3498DB" title="Flash Card／閃卡" onPress={() => Actions.card({ title: this.props.title, vocabulary: this.props.vocabulary })}>

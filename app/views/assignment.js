@@ -49,6 +49,7 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   },
   buttonLeft: {
     flex: 1,
+    flexDirection: 'column',
     height: 80,
     marginLeft: 10,
     marginRight: 5,
@@ -59,6 +60,7 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   },
   buttonRight: {
     flex: 1,
+    flexDirection: 'column',
     height: 80,
     marginLeft: 5,
     marginRight: 10,
@@ -72,18 +74,16 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
 export default class AssignmentView extends React.Component {
   constructor(props) {
     super(props);
-    const rands = _.sample(this.props.vocabulary, 2);
-    const answers = rands.map(e => e.word);
-    this.state = Object.assign({}, rands[0], {
-      answers,
-      suffled_answers: _.shuffle(answers),
+
+    this.state = {
       corrent: 0,
       total: 0,
-    });
+    };
   }
 
   componentDidMount() {
     timer.clearTimeout(this);
+    this.getNext();
   }
 
   componentWillUnmount() {
@@ -116,14 +116,16 @@ export default class AssignmentView extends React.Component {
         });
       }
     }
-    tracker.trackEvent('user-action', 'play-assignment-sound', { label: pageData.word });
+    if (this.props.testType === 'MATCHING') {
+      tracker.trackEvent('user-action', 'play-assignment-matching-sound', { label: pageData.word });
+    } else {
+      tracker.trackEvent('user-action', 'play-assignment-listening-sound', { label: pageData.word });
+    }
   }
 
   getNext() {
-    const rands = _.sample(this.props.vocabulary, 2);
-    const answers = rands.map(e => e.word);
-    this.setState(Object.assign({}, rands[0], {
-      answers,
+    const answers = _.sample(this.props.vocabulary, 2);
+    this.setState(Object.assign({}, answers[0], {
       suffled_answers: _.shuffle(answers),
       rightOrWrong: null,
     }));
@@ -139,14 +141,24 @@ export default class AssignmentView extends React.Component {
         corrent: this.state.corrent + 1,
         total: this.state.total + 1,
       });
-      tracker.trackEvent('user-action', 'answer-assignment', { label: 'correct' });
+
+      if (this.props.testType === 'MATCHING') {
+        tracker.trackEvent('user-action', 'answer-assignment-matching', { label: 'correct' });
+      } else {
+        tracker.trackEvent('user-action', 'answer-assignment-matching', { label: 'correct' });
+      }
     } else {
       console.log('Wrong');
       this.setState({
         rightOrWrong: false,
         total: this.state.total + 1,
       });
-      tracker.trackEvent('user-action', 'answer-assignment', { label: 'incorrect' });
+
+      if (this.props.testType === 'MATCHING') {
+        tracker.trackEvent('user-action', 'answer-assignment-matching', { label: 'incorrect' });
+      } else {
+        tracker.trackEvent('user-action', 'answer-assignment-matching', { label: 'incorrect' });
+      }
     }
 
     // this.getNext();
@@ -188,7 +200,41 @@ export default class AssignmentView extends React.Component {
   }
 
   render() {
-    tracker.trackScreenView('assignment');
+    if (this.props.testType === 'MATCHING') {
+      tracker.trackScreenView('assignment-matching');
+
+      return (
+        <View style={styles.container}>
+          {this.renderToolbar()}
+          <View style={styles.block}>
+            <Text style={styles.scoreText}>{this.state.corrent} / {this.state.total}</Text>
+            <TouchableOpacity style={styles.center} onPress={() => this.onPlaySound(this.state)}>
+              <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
+                {this.state.word && <Text style={{ fontSize: 120 - (6 * this.state.word.length) }}>{this.state.word}</Text>}
+              </View>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                {this.state.rightOrWrong === true && <Animatable.View animation="fadeOut" duration={500}><Icon name="check" size={80} color="#4CAF50" /></Animatable.View>}
+                {this.state.rightOrWrong === false && <Animatable.View animation="fadeOut" duration={500}><Icon name="close" size={80} color="#F44336" /></Animatable.View>}
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            {this.state.suffled_answers && <Button style={styles.buttonLeft} textStyle={{ fontSize: 24 }} onPress={() => this.reply(this.state.suffled_answers[0].word)} >
+              {this.state.suffled_answers[0].translation && <Text style={{ textAlign: 'center', fontSize: 18 }}>{this.state.suffled_answers[0].translation}</Text>}
+              {this.state.suffled_answers[0].entranslation && <Text style={{ textAlign: 'center', fontSize: 18 }}>{this.state.suffled_answers[0].entranslation}</Text>}
+            </Button>}
+            {this.state.suffled_answers && <Button style={styles.buttonRight} textStyle={{ fontSize: 24 }} onPress={() => this.reply(this.state.suffled_answers[1].word)} >
+              {this.state.suffled_answers[1].translation && <Text style={{ textAlign: 'center', fontSize: 18 }}>{this.state.suffled_answers[1].translation}</Text>}
+              {this.state.suffled_answers[1].entranslation && <Text style={{ textAlign: 'center', fontSize: 18 }}>{this.state.suffled_answers[1].entranslation}</Text>}
+            </Button>}
+          </View>
+
+          <AdmobCell />
+        </View>
+      );
+    }
+
+    tracker.trackScreenView('assignment-listening');
     return (
       <View style={styles.container}>
         {this.renderToolbar()}
@@ -205,12 +251,12 @@ export default class AssignmentView extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={{ flexDirection: 'row' }}>
-          <Button style={styles.buttonLeft} textStyle={{ fontSize: 24 }} onPress={() => this.reply(this.state.suffled_answers[0])} >
-            {this.state.suffled_answers[0]}
-          </Button>
-          <Button style={styles.buttonRight} textStyle={{ fontSize: 24 }} onPress={() => this.reply(this.state.suffled_answers[1])} >
-            {this.state.suffled_answers[1]}
-          </Button>
+          {this.state.suffled_answers && <Button style={styles.buttonLeft} textStyle={{ fontSize: 24 }} onPress={() => this.reply(this.state.suffled_answers[0].word)} >
+            {this.state.suffled_answers[0].word}
+          </Button>}
+          {this.state.suffled_answers && <Button style={styles.buttonRight} textStyle={{ fontSize: 24 }} onPress={() => this.reply(this.state.suffled_answers[1].word)} >
+            {this.state.suffled_answers[1].word}
+          </Button>}
         </View>
 
         <AdmobCell />
@@ -222,9 +268,11 @@ export default class AssignmentView extends React.Component {
 AssignmentView.propTypes = {
   title: React.PropTypes.string,
   vocabulary: React.PropTypes.arrayOf(React.PropTypes.object),
+  testType: React.PropTypes.string,
 };
 
 AssignmentView.defaultProps = {
   title: '',
   vocabulary: [],
+  testType: 'MATCHING',
 };

@@ -818,7 +818,7 @@ const furniture = [{
 }, {
   word: 'โต๊ะเครื่องแป้ง',
   pronunciation: 'dto khreuuang bpaaeng',
-  translation: '枕頭',
+  translation: '化妝台',
   entranslation: 'dresser',
 }, {
   word: 'กระจก',
