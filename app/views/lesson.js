@@ -144,7 +144,7 @@ export default class LessonView extends React.Component {
   }
 
   render() {
-    tracker.trackScreenView('lesson');
+    tracker.trackScreenViewWithCustomDimensionValues('lesson', { lesson: this.props.title });
     return (
       <View style={styles.container}>
         {this.renderToolbar()}

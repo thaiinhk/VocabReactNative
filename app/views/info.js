@@ -53,7 +53,7 @@ export default class InfoView extends Component {
           title={{ title: this.props.title, tintColor: 'white' }}
           rightButton={{
             title: 'Close',
-            tintColor: '#69BBFF',
+            tintColor: 'white',
             handler: Actions.pop,
           }}
         />

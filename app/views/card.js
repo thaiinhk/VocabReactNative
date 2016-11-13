@@ -195,7 +195,7 @@ export default class CardView extends React.Component {
   }
 
   render() {
-    tracker.trackScreenView('card');
+    tracker.trackScreenViewWithCustomDimensionValues('card', { lesson: this.props.title });
     return (
       <View style={styles.container}>
         {this.renderToolbar()}
