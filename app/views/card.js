@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 import Sound from 'react-native-sound';
 import Speech from 'react-native-speech';
+import Toast from 'react-native-root-toast';
 
 // Component
 import AdmobCell from './admob';
@@ -66,6 +67,7 @@ export default class CardView extends React.Component {
 
     this.state = {
       vocabulary: this.props.vocabulary,
+      toastVisible: true,
     };
   }
 
@@ -74,6 +76,15 @@ export default class CardView extends React.Component {
       .then((locales) => {
         console.log('Supported voices', locales);  // ["ar-SA", "en-ZA", "nl-BE", "en-AU", "th-TH", ...]
       });
+
+    Toast.show('點擊以翻轉卡片\nTouch to flip the card', {
+      duration: Toast.durations.SHORT,
+      position: Toast.positions.BOTTOM - 60,
+      shadow: true,
+      animation: true,
+      hideOnPress: true,
+      delay: 1000,
+    });
   }
 
   onActionSelected(position) {
