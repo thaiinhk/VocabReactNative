@@ -55,6 +55,9 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
     fontSize: 28,
     lineHeight: 42,
   },
+  selectDot: {
+    backgroundColor: '#424242',
+  },
 }));
 
 export default class CardView extends React.Component {
@@ -201,7 +204,7 @@ export default class CardView extends React.Component {
         {this.renderToolbar()}
         <IndicatorViewPager
           style={{ flex: 1 }}
-          indicator={<PagerDotIndicator pageCount={Math.min(this.state.vocabulary.length, 10)} />}
+          indicator={<PagerDotIndicator selectedDotStyle={styles.selectDot} pageCount={Math.min(this.state.vocabulary.length, 10)} />}
         >
           {this.state.vocabulary.map((object, i) => this.renderPage(object, i))}
         </IndicatorViewPager>
