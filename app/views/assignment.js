@@ -145,7 +145,7 @@ export default class AssignmentView extends React.Component {
       if (this.props.testType === 'MATCHING') {
         tracker.trackEvent('user-action', 'answer-assignment-matching', { label: 'correct' });
       } else {
-        tracker.trackEvent('user-action', 'answer-assignment-matching', { label: 'correct' });
+        tracker.trackEvent('user-action', 'answer-assignment-listening', { label: 'correct' });
       }
     } else {
       console.log('Wrong');
@@ -157,7 +157,7 @@ export default class AssignmentView extends React.Component {
       if (this.props.testType === 'MATCHING') {
         tracker.trackEvent('user-action', 'answer-assignment-matching', { label: 'incorrect' });
       } else {
-        tracker.trackEvent('user-action', 'answer-assignment-matching', { label: 'incorrect' });
+        tracker.trackEvent('user-action', 'answer-assignment-listening', { label: 'incorrect' });
       }
     }
 

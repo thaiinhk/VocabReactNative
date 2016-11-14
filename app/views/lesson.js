@@ -159,13 +159,34 @@ export default class LessonView extends React.Component {
         />
         <AdmobCell />
         <ActionButton buttonColor="#4CAF50">
-          <ActionButton.Item buttonColor="#9B59B6" title="Listening test／聽力" onPress={() => Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary, testType: 'LISTENING' })}>
+          <ActionButton.Item
+            buttonColor="#9B59B6"
+            title="Listening test／聽力"
+            onPress={() => {
+              Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary, testType: 'LISTENING' });
+              tracker.trackEvent('user-action', 'start-assignment-listening', { label: this.props.title });
+            }}
+          >
             <Icon name="hearing" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor="#00BCD4" title="Matching test／翻譯" onPress={() => Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary, testType: 'MATCHING' })}>
+          <ActionButton.Item
+            buttonColor="#00BCD4"
+            title="Matching test／翻譯"
+            onPress={() => {
+              Actions.assignment({ title: this.props.title, vocabulary: this.props.vocabulary, testType: 'MATCHING' });
+              tracker.trackEvent('user-action', 'start-assignment-matching', { label: this.props.title });
+            }}
+          >
             <Icon name="assignment" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor="#3498DB" title="Flash Card／閃卡" onPress={() => Actions.card({ title: this.props.title, vocabulary: this.props.vocabulary })}>
+          <ActionButton.Item
+            buttonColor="#3498DB"
+            title="Flash Card／閃卡"
+            onPress={() => {
+              Actions.card({ title: this.props.title, vocabulary: this.props.vocabulary });
+              tracker.trackEvent('user-action', 'start-card', { label: this.props.title });
+            }}
+          >
             <Icon name="layers" style={styles.actionButtonIcon} />
           </ActionButton.Item>
         </ActionButton>

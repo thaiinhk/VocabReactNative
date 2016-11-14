@@ -35,9 +35,9 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
 export default class InfoView extends Component {
   onShareApp() {
     Share.open({
-      title: 'Look Lock',
-      message: 'Look Lock - Show photos without worries.',
-      url: 'http://onelink.to/kzb9bx',
+      title: 'Thai Vocabulary',
+      message: 'Thai Vocabulary - your best Thai learning app',
+      url: 'http://onelink.to/b2p298 ',
       // subject: 'Share Link',
     }, (e) => {
       console.log(e);
