@@ -20,10 +20,10 @@ import timer from 'react-native-timer';
 import AdmobCell from './admob';
 
 import commonStyle from '../common-styles';
+import tracker from '../tracker';
 
 // Data
 import { lessons } from '../data/lessons';
-import tracker from '../tracker';
 
 const LESSON_PER_SECTION = 20;
 
@@ -93,7 +93,10 @@ export default class MainView extends Component {
     return (
       <TouchableHighlight
         underlayColor="#F1F8E9"
-        onPress={() => Actions.lesson(rowData)}
+        onPress={() => {
+          Actions.lesson(rowData);
+          tracker.trackEvent('user-action', 'open-lesson', { label: rowData.title });
+        }}
       >
         <View style={styles.row}>
           <Text style={styles.title}>{rowData.title}</Text>
@@ -185,7 +188,6 @@ export default class MainView extends Component {
 
           refreshableTintColor="blue"
         />
-
         <AdmobCell />
       </View>
     );

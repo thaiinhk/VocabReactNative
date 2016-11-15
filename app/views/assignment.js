@@ -201,7 +201,7 @@ export default class AssignmentView extends React.Component {
 
   render() {
     if (this.props.testType === 'MATCHING') {
-      tracker.trackScreenViewWithCustomDimensionValues('assignment-matching', { lesson: this.props.title });
+      tracker.trackScreenView('assignment-matching');
 
       return (
         <View style={styles.container}>
@@ -234,7 +234,7 @@ export default class AssignmentView extends React.Component {
       );
     }
 
-    tracker.trackScreenViewWithCustomDimensionValues('assignment-listening', { lesson: this.props.title });
+    tracker.trackScreenView('assignment-listening');
     return (
       <View style={styles.container}>
         {this.renderToolbar()}
