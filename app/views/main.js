@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {
+  Linking,
+  ListView,
   Platform,
   StyleSheet,
   Text,
@@ -31,7 +33,7 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   row: {
     padding: 15,
     paddingLeft: 20,
-    marginHorizontal: 10,
+    marginHorizontal: 12,
     marginVertical: 5,
     justifyContent: 'center',
     borderRightWidth: StyleSheet.hairlineWidth * 2,
@@ -42,12 +44,12 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   },
   title: {
     fontSize: 18,
-    color: '#212121',
+    lineHeight: 26,
   },
   subtitle: {
     fontSize: 16,
-    color: '#424242',
-    marginTop: 10,
+    fontWeight: '200',
+    lineHeight: 26,
   },
   paginationView: {
     height: 44,
@@ -58,11 +60,21 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
 }));
 
 export default class MainView extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dataSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 }),
+    };
+  }
+
   componentDidMount() {
+    this.prepareRows();
+
     timer.clearTimeout(this);
     timer.setTimeout(this, 'AdMobInterstitial', () => {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
-    }, 1000);
+    }, 20000);
   }
 
   componentWillUnmount() {
@@ -75,64 +87,29 @@ export default class MainView extends Component {
     }
   }
 
-  onFetch(page = 1, callback, options) {
-    const header = page;
-    const rows = {};
-    rows[header] = lessons.slice(LESSON_PER_SECTION * (page - 1), LESSON_PER_SECTION * page);
-
-    if (LESSON_PER_SECTION * page >= lessons.length) {
-      callback(rows, {
-        allLoaded: true, // the end of the list is reached
-      });
-    } else {
-      callback(rows);
-    }
+  prepareRows() {
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(lessons),
+    });
   }
 
   renderRowView(rowData) {
     return (
       <TouchableHighlight
-        underlayColor="#F1F8E9"
+        underlayColor="white"
+        style={styles.row}
         onPress={() => {
           Actions.lesson(rowData);
           tracker.trackEvent('user-action', 'open-lesson', { label: rowData.title });
         }}
       >
-        <View style={styles.row}>
+        <View>
           <Text style={styles.title}>{rowData.title}</Text>
           <Text style={styles.subtitle}>{rowData.entitle}</Text>
           <Text style={styles.subtitle}>{rowData.thtitle}</Text>
         </View>
       </TouchableHighlight>
     );
-  }
-
-  renderPaginationWaitingView(paginateCallback) {
-    return (
-      <TouchableHighlight
-        underlayColor="#C8C7CC"
-        onPress={paginateCallback}
-        style={styles.paginationView}
-      >
-        <View style={{ flexDirection: 'row' }}>
-          <Icon name="touch-app" size={15} color="gray" />
-          <Text style={{ fontSize: 13 }}>{'Load more'}</Text>
-        </View>
-      </TouchableHighlight>
-    );
-  }
-
-  renderSectionHeaderView(sectionData, sectionID) {
-    console.log(sectionID);
-    if (sectionID !== '1') {
-      return <AdmobCell />;
-    }
-
-    return null;
-  }
-
-  renderPaginationAllLoadedView() {
-    return null;
   }
 
   renderToolbar() {
@@ -169,24 +146,20 @@ export default class MainView extends Component {
     return (
       <View style={styles.container}>
         {this.renderToolbar()}
-        <GiftedListView
-          rowView={this.renderRowView}
-          onFetch={this.onFetch}
-
-          initialListSize={12}
-
-          firstLoader={true}
-          refreshable={false}
-
-          withSections={true}
-          sectionHeaderView={this.renderSectionHeaderView}
-
-          paginationAllLoadedView={this.renderPaginationAllLoadedView}
-
-          pagination={true}
-          paginationWaitingView={this.renderPaginationWaitingView}
-
-          refreshableTintColor="blue"
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={rowData => this.renderRowView(rowData)}
+          renderFooter={() => <TouchableOpacity
+            onPress={() => {
+              Linking.openURL('https://goo.gl/forms/noB7jUptpyYFGdr63');
+              tracker.trackEvent('user-action', 'open-url', { label: 'open-feedback' });
+            }}
+          >
+            <View style={[styles.row, { backgroundColor: '#C8E6C9' }]}>
+              <Text>還有其他想要的嗎？跟我們說說吧！</Text>
+              <Text>Any feedback? Click here and tell us!</Text>
+            </View>
+          </TouchableOpacity>}
         />
         <AdmobCell />
       </View>

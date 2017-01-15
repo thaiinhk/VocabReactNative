@@ -20,7 +20,7 @@ import { config } from './app/config';
 
 AdMobInterstitial.setAdUnitID(config.admob[Platform.OS].interstital);
 
-if (DeviceInfo.getDeviceName() === 'iPhone Simulator' || DeviceInfo.getManufacturer() === 'Genymotion') {
+if (DeviceInfo.getDeviceName() === 'iPhone Simulator' || DeviceInfo.getDeviceName() === 'apple’s MacBook Pro' || DeviceInfo.getManufacturer() === 'Genymotion') {
   AdMobInterstitial.setTestDeviceID('EMULATOR');
 }
 

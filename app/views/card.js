@@ -130,7 +130,7 @@ export default class CardView extends React.Component {
   }
 
   popAndAd() {
-    if (Math.random() > 0.8) {
+    if (Math.random() > 0.95) {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
     }
     Actions.pop();
@@ -218,6 +218,7 @@ export default class CardView extends React.Component {
           indicator={<PagerDotIndicator selectedDotStyle={styles.selectDot} pageCount={Math.min(this.state.vocabulary.length, 10)} />}
         >
           {this.state.vocabulary.map((object, i) => this.renderPage(object, i))}
+          <View style={{ paddingTop: 100 }}><AdmobCell bannerSize="mediumRectangle" /></View>
         </IndicatorViewPager>
         <AdmobCell />
       </View>

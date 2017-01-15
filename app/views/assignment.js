@@ -166,7 +166,7 @@ export default class AssignmentView extends React.Component {
   }
 
   popAndAd() {
-    if (Math.random() > 0.7) {
+    if (Math.random() > 0.95) {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
     }
     Actions.pop();
