@@ -10,16 +10,18 @@
 
 ## App preview
 
-<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot0.png" width="200">
-<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot1.png" width="200">
-<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot2.png" width="200">
-<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot3.png" width="200">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot0.png" width="150">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot1.png" width="150">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot2.png" width="150">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot3.png" width="150">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshot4.png" width="150">
 <br />
 
-<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshotIOS0.png" width="200">
-<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshotIOS1.png" width="200">
-<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshotIOS2.png" width="200">
-<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshotIOS3.png" width="200">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshotIOS0.png" width="150">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshotIOS1.png" width="150">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshotIOS2.png" width="150">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshotIOS3.png" width="150">
+<img src="https://raw.github.com/thaiinhk/VocabReactNative/master/assets/screenshot/screenshotIOS4.png" width="150">
 
 ## Running
 

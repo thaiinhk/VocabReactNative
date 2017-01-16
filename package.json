@@ -8,6 +8,7 @@
     "bundle-android": "$NVM_BIN/react-native bundle --platform android --dev false --entry-file ./index.android.js --bundle-output android/app/src/main/assets/index.android.bundle # --assets-dest android/app/src/main/res/",
     "release-android": "cd android && ./gradlew assembleRelease && cd ..",
     "install-android": "adb install android/app/build/outputs/apk/app-release.apk",
+    "capture-android": "adb shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > screenshot0.png",
     "test": "jest"
   },
   "dependencies": {
