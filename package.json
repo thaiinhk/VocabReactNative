@@ -8,7 +8,7 @@
     "bundle-android": "$NVM_BIN/react-native bundle --platform android --dev false --entry-file ./index.android.js --bundle-output android/app/src/main/assets/index.android.bundle # --assets-dest android/app/src/main/res/",
     "release-android": "cd android && ./gradlew assembleRelease && cd ..",
     "install-android": "adb install android/app/build/outputs/apk/app-release.apk",
-    "capture-android": "adb shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > screenshot0.png",
+    "capture-android": "adb shell screencap -p | perl -pe 's/\\x0D\\x0A/\\x0A/g' > screenshot0.png",
     "test": "jest"
   },
   "dependencies": {
@@ -20,7 +20,6 @@
     "react-native-animatable": "^0.6.1",
     "react-native-device-info": "^0.9.6",
     "react-native-flip-card": "^3.3.1",
-    "react-native-gifted-listview": "^0.0.15",
     "react-native-google-analytics-bridge": "^4.0.1",
     "react-native-navbar": "^1.5.4",
     "react-native-root-toast": "^1.0.3",
