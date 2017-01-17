@@ -16,6 +16,7 @@ import { AdMobInterstitial } from 'react-native-admob';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 import timer from 'react-native-timer';
+import { InterstitialAdManager } from 'react-native-fbads';
 
 // Component
 import AdmobCell from './admob';
@@ -23,10 +24,10 @@ import AdmobCell from './admob';
 import commonStyle from '../common-styles';
 import tracker from '../tracker';
 
+import { config } from '../config';
+
 // Data
 import { lessons } from '../data/lessons';
-
-const LESSON_PER_SECTION = 20;
 
 const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   row: {
@@ -71,9 +72,20 @@ export default class MainView extends Component {
     this.prepareRows();
 
     timer.clearTimeout(this);
+
     timer.setTimeout(this, 'AdMobInterstitial', () => {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
-    }, 20000);
+    }, 2000);
+
+    timer.setTimeout(this, 'AudienceInterstitial', () => {
+      InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
+        .then((didClick) => {
+          console.log('Facebook Interstitial Ad', didClick);
+        })
+        .catch((error) => {
+          console.log('Facebook Interstitial Ad', error);
+        });
+    }, 120000);
   }
 
   componentWillUnmount() {

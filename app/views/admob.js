@@ -26,8 +26,9 @@ export default class AdmobCell extends React.Component {
   }
 
   componentDidMount() {
-    timer.clearTimeout(this);
-    timer.setInterval(this, 'adRefresh', () => this.setState({ adRefresh: Math.random() }), this.props.refreshInterval);
+    if (this.props.isForceRefresh) {
+      timer.setInterval(this, 'adRefresh', () => this.setState({ adRefresh: Math.random() }), this.props.refreshInterval);
+    }
   }
 
   componentWillUnmount() {
@@ -46,11 +47,13 @@ export default class AdmobCell extends React.Component {
 AdmobCell.propTypes = {
   margin: React.PropTypes.number,
   bannerSize: React.PropTypes.string,
+  isForceRefresh: React.PropTypes.bool,
   refreshInterval: React.PropTypes.number,
 };
 
 AdmobCell.defaultProps = {
   margin: 0,
   bannerSize: 'smartBannerPortrait',
-  refreshInterval: 10000,
+  isForceRefresh: true,
+  refreshInterval: 20000,
 };
