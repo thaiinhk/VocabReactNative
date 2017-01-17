@@ -14,18 +14,16 @@ import {
 // 3rd party libraries
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
+import { NativeAdsManager } from 'react-native-fbads';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 import Sound from 'react-native-sound';
 import Speech from 'react-native-speech';
 
-import { NativeAdsManager } from 'react-native-fbads';
-
-import FbAds from './fbads';
-
 // Component
 import AdmobCell from './admob';
+import FbAds from './fbads';
 
 import commonStyle from '../common-styles';
 import tracker from '../tracker';
@@ -72,18 +70,23 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   },
   taskSelectBlock: {
     flex: 1,
+    marginHorizontal: 6,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     height: (window.width / 3) - 20,
-    borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderBottomColor: '#CCCCCC',
+    borderBottomWidth: StyleSheet.hairlineWidth * 5,
+    borderBottomColor: '#4CAF50',
+  },
+  taskSelectBlockInner: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   taskSelectText: {
     fontSize: 14,
     lineHeight: 32,
     fontWeight: '200',
-    marginTop: 12,
+    marginTop: 5,
   },
   wordText: {
     fontSize: 18,
@@ -210,36 +213,39 @@ export default class LessonView extends React.Component {
             <Text style={styles.subtitle}>{this.props.thtitle}</Text>
           </View>
           <View style={{ padding: 6, flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TouchableHighlight underlayColor="white" style={{ flex: 1, margin: 6 }} onPress={() => this.goCards()}>
-              <View style={styles.taskSelectBlock}>
+            <TouchableHighlight underlayColor="#F5F5F5" style={styles.taskSelectBlock} onPress={() => this.goCards()}>
+              <View style={styles.taskSelectBlockInner}>
                 <Icon name="layers" size={28} color="#424242" />
                 <Text style={styles.taskSelectText}>CARDS</Text>
               </View>
             </TouchableHighlight>
-            <TouchableHighlight underlayColor="white" style={{ flex: 1, margin: 6 }} onPress={() => this.goMatching()}>
-              <View style={styles.taskSelectBlock}>
+            <TouchableHighlight underlayColor="#F5F5F5" style={styles.taskSelectBlock} onPress={() => this.goMatching()}>
+              <View style={styles.taskSelectBlockInner}>
                 <Icon name="assignment" size={28} color="#424242" />
                 <Text style={styles.taskSelectText}>MATCHING</Text>
               </View>
             </TouchableHighlight>
-            <TouchableHighlight underlayColor="white" style={{ flex: 1, margin: 6 }} onPress={() => this.goListening()}>
-              <View style={styles.taskSelectBlock}>
+            <TouchableHighlight underlayColor="#F5F5F5" style={styles.taskSelectBlock} onPress={() => this.goListening()}>
+              <View style={styles.taskSelectBlockInner}>
                 <Icon name="hearing" size={28} color="#424242" />
                 <Text style={styles.taskSelectText}>LISTENING</Text>
               </View>
             </TouchableHighlight>
           </View>
-          <View style={[styles.row, { paddingHorizontal: 0 }]}>
+          {!this.state.isFbAdsHided && <View style={[styles.row, { paddingHorizontal: 0 }]}>
             <FbAds adsManager={adsManager} />
-          </View>
+            <TouchableOpacity style={{ position: 'absolute', top: 5, right: 5, backgroundColor: '#E0E0E0' }} onPress={() => this.setState({ isFbAdsHided: true })} >
+              <Icon name="close" size={14} color="#424242" />
+            </TouchableOpacity>
+          </View>}
           <ListView
             dataSource={this.state.dataSource}
-            renderRow={rowData => <TouchableOpacity onPress={() => this.onPlaySound(rowData)}>
-              <View style={styles.row}>
+            renderRow={rowData => <TouchableHighlight style={styles.row} underlayColor="#F5F5F5" onPress={() => this.onPlaySound(rowData)}>
+              <View>
                 <Text style={styles.wordText}>{rowData.word}</Text>
                 {(rowData.translation || rowData.entranslation) && <Text style={styles.translationText}>{rowData.translation} {rowData.entranslation}</Text>}
               </View>
-            </TouchableOpacity>}
+            </TouchableHighlight>}
           />
         </ScrollView>
         <AdmobCell />

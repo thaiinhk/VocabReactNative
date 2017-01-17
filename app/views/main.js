@@ -13,13 +13,14 @@ import {
 // 3rd party libraries
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
+import { InterstitialAdManager, NativeAdsManager } from 'react-native-fbads';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 import timer from 'react-native-timer';
-import { InterstitialAdManager } from 'react-native-fbads';
 
 // Component
 import AdmobCell from './admob';
+import FbAds from './fbads';
 
 import commonStyle from '../common-styles';
 import tracker from '../tracker';
@@ -28,6 +29,8 @@ import { config } from '../config';
 
 // Data
 import { lessons } from '../data/lessons';
+
+const adsManager = new NativeAdsManager(config.fbads[Platform.OS].native);
 
 const styles = StyleSheet.create(Object.assign({}, commonStyle, {
   row: {
@@ -75,7 +78,7 @@ export default class MainView extends Component {
 
     timer.setTimeout(this, 'AdMobInterstitial', () => {
       AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
-    }, 2000);
+    }, 60 * 1000);
 
     timer.setTimeout(this, 'AudienceInterstitial', () => {
       InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
@@ -85,7 +88,7 @@ export default class MainView extends Component {
         .catch((error) => {
           console.log('Facebook Interstitial Ad', error);
         });
-    }, 120000);
+    }, 10 * 60 * 1000);
   }
 
   componentWillUnmount() {
@@ -107,7 +110,7 @@ export default class MainView extends Component {
   renderRowView(rowData) {
     return (
       <TouchableHighlight
-        underlayColor="white"
+        underlayColor="#F5F5F5"
         style={styles.row}
         onPress={() => {
           Actions.lesson(rowData);
@@ -160,17 +163,25 @@ export default class MainView extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={rowData => this.renderRowView(rowData)}
-          renderFooter={() => <TouchableOpacity
-            onPress={() => {
-              Linking.openURL('https://goo.gl/forms/noB7jUptpyYFGdr63');
-              tracker.trackEvent('user-action', 'open-url', { label: 'open-feedback' });
-            }}
-          >
-            <View style={[styles.row, { backgroundColor: '#C8E6C9' }]}>
-              <Text>還有其他想要的嗎？跟我們說說吧！</Text>
-              <Text>Any feedback? Click here and tell us!</Text>
-            </View>
-          </TouchableOpacity>}
+          renderFooter={() => <View>
+            {!this.state.isFbAdsHided && <View style={[styles.row, { paddingHorizontal: 0 }]}>
+              <FbAds adsManager={adsManager} />
+              <TouchableOpacity style={{ position: 'absolute', top: 5, right: 5, backgroundColor: '#E0E0E0' }} onPress={() => this.setState({ isFbAdsHided: true })} >
+                <Icon name="close" size={14} color="#424242" />
+              </TouchableOpacity>
+            </View>}
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL('https://goo.gl/forms/noB7jUptpyYFGdr63');
+                tracker.trackEvent('user-action', 'open-url', { label: 'open-feedback' });
+              }}
+            >
+              <View style={[styles.row, { backgroundColor: '#C8E6C9' }]}>
+                <Text>還有其他想要的嗎？跟我們說說吧！</Text>
+                <Text>Any feedback? Click here and tell us!</Text>
+              </View>
+            </TouchableOpacity>
+          </View>}
         />
         <AdmobCell />
       </View>
