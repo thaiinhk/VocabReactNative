@@ -15,7 +15,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
 import { NativeAdsManager } from 'react-native-fbads';
-import ActionButton from 'react-native-action-button';
+// import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
 import Sound from 'react-native-sound';
@@ -249,7 +249,7 @@ export default class LessonView extends React.Component {
           />
         </ScrollView>
         <AdmobCell />
-        <ActionButton buttonColor="#4CAF50">
+        {/* <ActionButton buttonColor="#4CAF50">
           <ActionButton.Item
             buttonColor="#9B59B6"
             title="Listening test／聽力"
@@ -271,7 +271,7 @@ export default class LessonView extends React.Component {
           >
             <Icon name="layers" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-        </ActionButton>
+        </ActionButton> */}
       </View>
     );
   }
