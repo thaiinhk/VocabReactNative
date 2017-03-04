@@ -15,7 +15,7 @@
     "apsl-react-native-button": "^3.0.1",
     "react": "15.3.2",
     "react-native": "0.36.1",
-    "react-native-action-button": "^2.0.14",
+    "react-native-action-button": "2.6.2",
     "react-native-admob": "^1.1.5",
     "react-native-animatable": "^0.6.1",
     "react-native-device-info": "^0.9.6",
