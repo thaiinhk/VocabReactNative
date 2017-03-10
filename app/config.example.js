@@ -11,10 +11,12 @@ exports.config = {
   },
   fbads: {
     ios: {
+      banner: '',
       native: '',
       interstital: '',
     },
     android: {
+      banner: '',
       native: '',
       interstital: '',
     },

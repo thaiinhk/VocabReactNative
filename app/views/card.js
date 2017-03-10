@@ -20,6 +20,7 @@ import Speech from 'react-native-speech';
 import Toast from 'react-native-root-toast';
 
 // Component
+import AdBanner from './ad-banner';
 import AdmobCell from './admob';
 
 import commonStyle from '../common-styles';
@@ -49,12 +50,12 @@ const styles = StyleSheet.create(Object.assign({}, commonStyle, {
     alignItems: 'center',
   },
   pronunciationText: {
-    fontSize: 22,
-    lineHeight: 42,
+    fontSize: 20,
+    lineHeight: 36,
   },
   translationText: {
-    fontSize: 28,
-    lineHeight: 42,
+    fontSize: 26,
+    lineHeight: 36,
   },
   selectDot: {
     backgroundColor: '#424242',
@@ -140,6 +141,7 @@ export default class CardView extends React.Component {
     return (
       <FlipCard
         key={i}
+        friction={12}
         flipHorizontal={true}
         flipVertical={false}
         style={{ borderWidth: 0 }}
@@ -220,7 +222,7 @@ export default class CardView extends React.Component {
           {this.state.vocabulary.map((object, i) => this.renderPage(object, i))}
           <View style={{ paddingTop: 100 }}><AdmobCell bannerSize="mediumRectangle" /></View>
         </IndicatorViewPager>
-        <AdmobCell />
+        <AdBanner />
       </View>
     );
   }

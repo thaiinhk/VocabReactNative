@@ -21,7 +21,7 @@ import Speech from 'react-native-speech';
 import timer from 'react-native-timer';
 
 // Component
-import AdmobCell from './admob';
+import AdBanner from './ad-banner';
 
 import commonStyle from '../common-styles';
 import tracker from '../tracker';
@@ -228,8 +228,7 @@ export default class AssignmentView extends React.Component {
               {this.state.suffled_answers[1].entranslation && <Text style={{ textAlign: 'center', fontSize: 18 }}>{this.state.suffled_answers[1].entranslation}</Text>}
             </Button>}
           </View>
-
-          <AdmobCell />
+          <AdBanner />
         </View>
       );
     }
@@ -258,8 +257,7 @@ export default class AssignmentView extends React.Component {
             {this.state.suffled_answers[1].word}
           </Button>}
         </View>
-
-        <AdmobCell />
+        <AdBanner />
       </View>
     );
   }

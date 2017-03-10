@@ -19,7 +19,7 @@ import NavigationBar from 'react-native-navbar';
 import timer from 'react-native-timer';
 
 // Component
-import AdmobCell from './admob';
+import AdBanner from './ad-banner';
 import FbAds from './fbads';
 
 import commonStyle from '../common-styles';
@@ -76,9 +76,14 @@ export default class MainView extends Component {
 
     timer.clearTimeout(this);
 
-    timer.setTimeout(this, 'AdMobInterstitial', () => {
-      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
-    }, 60 * 1000);
+    InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
+      .then((didClick) => {
+        console.log('Facebook Interstitial Ad', didClick);
+      })
+      .catch((error) => {
+        console.log('Facebook Interstitial Ad Failed', error);
+        AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error1 => error1 && console.log(error1)));
+      });
 
     timer.setTimeout(this, 'AudienceInterstitial', () => {
       InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
@@ -86,7 +91,8 @@ export default class MainView extends Component {
           console.log('Facebook Interstitial Ad', didClick);
         })
         .catch((error) => {
-          console.log('Facebook Interstitial Ad', error);
+          console.log('Facebook Interstitial Ad Failed', error);
+          AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error1 => error1 && console.log(error1)));
         });
     }, 10 * 60 * 1000);
   }
@@ -107,22 +113,25 @@ export default class MainView extends Component {
     });
   }
 
-  renderRowView(rowData) {
+  renderRowView(rowData, rowId) {
     return (
-      <TouchableHighlight
-        underlayColor="#F5F5F5"
-        style={styles.row}
-        onPress={() => {
-          Actions.lesson(rowData);
-          tracker.trackEvent('user-action', 'open-lesson', { label: rowData.title });
-        }}
-      >
-        <View>
-          <Text style={styles.title}>{rowData.title}</Text>
-          <Text style={styles.subtitle}>{rowData.entitle}</Text>
-          <Text style={styles.subtitle}>{rowData.thtitle}</Text>
-        </View>
-      </TouchableHighlight>
+      <View>
+        <TouchableHighlight
+          underlayColor="#F5F5F5"
+          style={styles.row}
+          onPress={() => {
+            Actions.lesson(rowData);
+            tracker.trackEvent('user-action', 'open-lesson', { label: rowData.title });
+          }}
+        >
+          <View>
+            <Text style={styles.title}>{rowData.title}</Text>
+            <Text style={styles.subtitle}>{rowData.entitle}</Text>
+            <Text style={styles.subtitle}>{rowData.thtitle}</Text>
+          </View>
+        </TouchableHighlight>
+        {rowId % 20 === 1 && <FbAds adsManager={adsManager} />}
+      </View>
     );
   }
 
@@ -162,14 +171,10 @@ export default class MainView extends Component {
         {this.renderToolbar()}
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={rowData => this.renderRowView(rowData)}
+          renderRow={(rowData, secId, rowId) => this.renderRowView(rowData, rowId)}
           renderFooter={() => <View>
-            {!this.state.isFbAdsHided && <View style={[styles.row, { paddingHorizontal: 0 }]}>
-              <FbAds adsManager={adsManager} />
-              <TouchableOpacity style={{ position: 'absolute', top: 5, right: 5, backgroundColor: '#E0E0E0' }} onPress={() => this.setState({ isFbAdsHided: true })} >
-                <Icon name="close" size={14} color="#424242" />
-              </TouchableOpacity>
-            </View>}
+            <FbAds adsManager={adsManager} />
+
             <TouchableOpacity
               onPress={() => {
                 Linking.openURL('https://goo.gl/forms/noB7jUptpyYFGdr63');
@@ -183,7 +188,7 @@ export default class MainView extends Component {
             </TouchableOpacity>
           </View>}
         />
-        <AdmobCell />
+        <AdBanner />
       </View>
     );
   }

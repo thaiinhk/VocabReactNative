@@ -14,7 +14,7 @@ import {
 // 3rd party libraries
 import { Actions } from 'react-native-router-flux';
 import { AdMobInterstitial } from 'react-native-admob';
-import { NativeAdsManager } from 'react-native-fbads';
+import { InterstitialAdManager, NativeAdsManager } from 'react-native-fbads';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NavigationBar from 'react-native-navbar';
@@ -22,7 +22,7 @@ import Sound from 'react-native-sound';
 import Speech from 'react-native-speech';
 
 // Component
-import AdmobCell from './admob';
+import AdBanner from './ad-banner';
 import FbAds from './fbads';
 
 import commonStyle from '../common-styles';
@@ -154,8 +154,16 @@ export default class LessonView extends React.Component {
 
   popAndAd() {
     if (Math.random() > 0.9) {
-      AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error => error && console.log(error)));
+      InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
+        .then((didClick) => {
+          console.log('Facebook Interstitial Ad', didClick);
+        })
+        .catch((error) => {
+          console.log('Facebook Interstitial Ad Failed', error);
+          AdMobInterstitial.requestAd(() => AdMobInterstitial.showAd(error1 => error1 && console.log(error1)));
+        });
     }
+
     Actions.pop();
   }
 
@@ -232,12 +240,9 @@ export default class LessonView extends React.Component {
               </View>
             </TouchableHighlight>
           </View>
-          {!this.state.isFbAdsHided && <View style={[styles.row, { paddingHorizontal: 0 }]}>
-            <FbAds adsManager={adsManager} />
-            <TouchableOpacity style={{ position: 'absolute', top: 5, right: 5, backgroundColor: '#E0E0E0' }} onPress={() => this.setState({ isFbAdsHided: true })} >
-              <Icon name="close" size={14} color="#424242" />
-            </TouchableOpacity>
-          </View>}
+
+          <FbAds adsManager={adsManager} />
+
           <ListView
             dataSource={this.state.dataSource}
             renderRow={rowData => <TouchableHighlight style={styles.row} underlayColor="#F5F5F5" onPress={() => this.onPlaySound(rowData)}>
@@ -247,8 +252,11 @@ export default class LessonView extends React.Component {
               </View>
             </TouchableHighlight>}
           />
+
+          <FbAds adsManager={adsManager} />
         </ScrollView>
-        <AdmobCell />
+        <AdBanner />
+
         <ActionButton buttonColor="#4CAF50">
           <ActionButton.Item
             buttonColor="#9B59B6"
@@ -286,5 +294,7 @@ LessonView.propTypes = {
 
 LessonView.defaultProps = {
   title: '',
+  entitle: '',
+  thtitle: '',
   vocabulary: [],
 };
