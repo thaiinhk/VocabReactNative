@@ -2127,7 +2127,7 @@ interpret@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.1.tgz#d579fb7f693b858004947af39fa0db49f795602c"
 
-invariant@^2.2.0:
+invariant@^2.2.0, invariant@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -3425,12 +3425,6 @@ react-native-fbads@LutherDiaz/react-native-fbads#patch-1:
   dependencies:
     eventemitter3 "^2.0.2"
 
-react-native-fbads@callstack-io/react-native-fbads:
-  version "4.1.0"
-  resolved "https://codeload.github.com/callstack-io/react-native-fbads/tar.gz/49e8a33330077670b14a6499f8d6df27e4fd50cd"
-  dependencies:
-    eventemitter3 "^2.0.2"
-
 react-native-flip-card@^3.3.1:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/react-native-flip-card/-/react-native-flip-card-3.3.3.tgz#89b44d175d953a1d806134cbbfcd20002d0b3fd1"
@@ -3442,6 +3436,18 @@ react-native-google-analytics-bridge@^5.0.1:
 react-native-navbar@^1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/react-native-navbar/-/react-native-navbar-1.6.3.tgz#36ad8b2d2c64fe3f3530378e712ce1ccc60bd18a"
+
+react-native-onesignal@7kfpun/react-native-onesignal:
+  version "3.0.3"
+  resolved "https://codeload.github.com/7kfpun/react-native-onesignal/tar.gz/9e0440d3418dbbe3f9409bf4bc25874ff046c58a"
+  dependencies:
+    invariant "^2.2.2"
+
+react-native-onesignal@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-3.0.3.tgz#6e9fd8588c40b07b22fae38202e662643e070ae2"
+  dependencies:
+    invariant "^2.2.2"
 
 react-native-root-siblings@^1.0.7:
   version "1.1.3"
