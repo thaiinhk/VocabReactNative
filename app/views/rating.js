@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
@@ -61,13 +60,16 @@ export default class Rating extends React.Component {
     });
   }
 
-  state = {
-    starCount: 0,
-    isRatingGiven: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      starCount: 0,
+      isRatingGiven: false,
+    };
+  }
 
   componentDidMount() {
-    store.save('isRatingGiven', false);
     const that = this;
     store.get('isRatingGiven').then((isRatingGiven) => {
       if (isRatingGiven) {
@@ -75,7 +77,7 @@ export default class Rating extends React.Component {
       }
     });
 
-    timer.setTimeout(this, 'rating', () => this.setState({ isRatingShow: true }), 1 * 1000);
+    timer.setTimeout(this, 'rating', () => this.setState({ isRatingShow: true }), 5 * 60 * 1000);
   }
 
   componentWillUnmount() {
@@ -99,7 +101,7 @@ export default class Rating extends React.Component {
 
     store.save('isRatingGiven', true);
 
-    timer.setTimeout(this, 'hideRating', () => this.setState({ isRatingGiven: true }), 10 * 1000);
+    timer.setTimeout(this, 'hideRating', () => this.setState({ isRatingGiven: true }), 5 * 1000);
     tracker.trackEvent('user-action', 'give-rating', { label: rating.toString() });
   }
 

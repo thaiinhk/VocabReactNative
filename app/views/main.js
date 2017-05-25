@@ -131,8 +131,8 @@ export default class MainView extends Component {
             <Text style={styles.subtitle}>{rowData.thtitle}</Text>
           </View>
         </TouchableHighlight>
+        {rowId === '1' && <Rating />}
         {rowId % 20 === 1 && <FbAds adsManager={adsManager} />}
-        {rowId === '0' && <Rating />}
       </View>
     );
   }
