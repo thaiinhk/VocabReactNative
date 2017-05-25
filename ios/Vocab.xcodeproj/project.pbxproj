@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -29,7 +28,7 @@
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2D02E4C21E0B4AEC006451C7 /* libRCTAnimation-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157351DD0AC6500FF2AA8 /* libRCTAnimation-tvOS.a */; };
+		2D02E4C21E0B4AEC006451C7 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157351DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		2D02E4C31E0B4AEC006451C7 /* libRCTImage-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */; };
 		2D02E4C41E0B4AEC006451C7 /* libRCTLinking-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E881DF850E9000B6D8A /* libRCTLinking-tvOS.a */; };
 		2D02E4C51E0B4AEC006451C7 /* libRCTNetwork-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E8C1DF850E9000B6D8A /* libRCTNetwork-tvOS.a */; };
@@ -56,9 +55,9 @@
 		9EAD0F021E706D4E00862928 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAD0F011E706D4E00862928 /* libz.tbd */; };
 		9EAD0F041E706D5500862928 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAD0F031E706D5500862928 /* libsqlite3.0.tbd */; };
 		9EAD0F321E72DDF000862928 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EAD0F311E72DDF000862928 /* GoogleMobileAds.framework */; };
-		9EEEA3EE1ED705BC0064BC3A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEEA3EB1ED705BC0064BC3A /* Bolts.framework */; };
-		9EEEA3EF1ED705BC0064BC3A /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEEA3EC1ED705BC0064BC3A /* FBAudienceNetwork.framework */; };
-		9EEEA3F01ED705BC0064BC3A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEEA3ED1ED705BC0064BC3A /* FBSDKCoreKit.framework */; };
+		9EEEA5351ED719260064BC3A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEEA5321ED719260064BC3A /* Bolts.framework */; };
+		9EEEA5361ED719260064BC3A /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEEA5331ED719260064BC3A /* FBAudienceNetwork.framework */; };
+		9EEEA5371ED719260064BC3A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEEA5341ED719260064BC3A /* FBSDKCoreKit.framework */; };
 		A95A1EDE623F4994BA79E723 /* libRNStoreReview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 365A33EBAB4D4306964C10A5 /* libRNStoreReview.a */; };
 		BA78C31752B34C0881F11F86 /* libRCTGoogleAnalyticsBridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21BD7F27218145C3A8DEC637 /* libRCTGoogleAnalyticsBridge.a */; };
 		D746482E4DBA4540858FDCAE /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8C2748E83343E08DD2CFE7 /* libRNVectorIcons.a */; };
@@ -380,9 +379,9 @@
 		9EAD105E1E7513B100862928 /* Vocab.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Vocab.entitlements; path = Vocab/Vocab.entitlements; sourceTree = "<group>"; };
 		9EAD105F1E75220D00862928 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		9EAD10601E75221400862928 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		9EEEA3EB1ED705BC0064BC3A /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		9EEEA3EC1ED705BC0064BC3A /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
-		9EEEA3ED1ED705BC0064BC3A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		9EEEA5321ED719260064BC3A /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		9EEEA5331ED719260064BC3A /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
+		9EEEA5341ED719260064BC3A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		A12B7F3649D44FF194CC8866 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		A28BC3719DF64243906A3DEC /* RNSound.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSound.xcodeproj; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; };
 		ACB429268FF44242B0239F68 /* RNShare.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
@@ -411,12 +410,12 @@
 			files = (
 				9EAD0F321E72DDF000862928 /* GoogleMobileAds.framework in Frameworks */,
 				9EAD0F041E706D5500862928 /* libsqlite3.0.tbd in Frameworks */,
+				9EEEA5371ED719260064BC3A /* FBSDKCoreKit.framework in Frameworks */,
 				9EAD0F021E706D4E00862928 /* libz.tbd in Frameworks */,
 				9EAD0F001E706D4700862928 /* SystemConfiguration.framework in Frameworks */,
 				9EAD0EFE1E706D4100862928 /* CoreData.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
-				9EEEA3EE1ED705BC0064BC3A /* Bolts.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
@@ -425,16 +424,16 @@
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
+				9EEEA5351ED719260064BC3A /* Bolts.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				4AB7AD8E6D934C2F9BFC9DE3 /* libRNAdMobManager.a in Frameworks */,
 				6C7527304ACB4D94BF97EB7E /* libRNDeviceInfo.a in Frameworks */,
+				9EEEA5361ED719260064BC3A /* FBAudienceNetwork.framework in Frameworks */,
 				4D0F86F3EE5A4A25A249AC02 /* librn-fbads.a in Frameworks */,
 				BA78C31752B34C0881F11F86 /* libRCTGoogleAnalyticsBridge.a in Frameworks */,
 				51EC4ECAC5EC43579842B49A /* libRNShare.a in Frameworks */,
 				938CB1C20802416180F22ADF /* libRNSound.a in Frameworks */,
 				9A11298ADD2843B2AFE4B0BD /* libSpeechSynthesizer.a in Frameworks */,
-				9EEEA3EF1ED705BC0064BC3A /* FBAudienceNetwork.framework in Frameworks */,
-				9EEEA3F01ED705BC0064BC3A /* FBSDKCoreKit.framework in Frameworks */,
 				D746482E4DBA4540858FDCAE /* libRNVectorIcons.a in Frameworks */,
 				3B3116D2BD7043CB8A1D10E7 /* libRCTOneSignal.a in Frameworks */,
 				A95A1EDE623F4994BA79E723 /* libRNStoreReview.a in Frameworks */,
@@ -446,7 +445,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */,
-				2D02E4C21E0B4AEC006451C7 /* libRCTAnimation-tvOS.a in Frameworks */,
+				2D02E4C21E0B4AEC006451C7 /* libRCTAnimation.a in Frameworks */,
 				2D02E4C31E0B4AEC006451C7 /* libRCTImage-tvOS.a in Frameworks */,
 				2D02E4C41E0B4AEC006451C7 /* libRCTLinking-tvOS.a in Frameworks */,
 				2D02E4C51E0B4AEC006451C7 /* libRCTNetwork-tvOS.a in Frameworks */,
@@ -594,7 +593,7 @@
 			isa = PBXGroup;
 			children = (
 				5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */,
-				5E9157351DD0AC6500FF2AA8 /* libRCTAnimation-tvOS.a */,
+				5E9157351DD0AC6500FF2AA8 /* libRCTAnimation.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -737,9 +736,9 @@
 		9EAD0EFC1E706D4000862928 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9EEEA3EB1ED705BC0064BC3A /* Bolts.framework */,
-				9EEEA3EC1ED705BC0064BC3A /* FBAudienceNetwork.framework */,
-				9EEEA3ED1ED705BC0064BC3A /* FBSDKCoreKit.framework */,
+				9EEEA5321ED719260064BC3A /* Bolts.framework */,
+				9EEEA5331ED719260064BC3A /* FBAudienceNetwork.framework */,
+				9EEEA5341ED719260064BC3A /* FBSDKCoreKit.framework */,
 				9EAD0F311E72DDF000862928 /* GoogleMobileAds.framework */,
 				9EAD0F031E706D5500862928 /* libsqlite3.0.tbd */,
 				9EAD0F011E706D4E00862928 /* libz.tbd */,
@@ -1134,10 +1133,10 @@
 			remoteRef = 5E9157321DD0AC6500FF2AA8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5E9157351DD0AC6500FF2AA8 /* libRCTAnimation-tvOS.a */ = {
+		5E9157351DD0AC6500FF2AA8 /* libRCTAnimation.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libRCTAnimation-tvOS.a";
+			path = libRCTAnimation.a;
 			remoteRef = 5E9157341DD0AC6500FF2AA8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};

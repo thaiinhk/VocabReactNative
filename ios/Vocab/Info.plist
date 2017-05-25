@@ -20,6 +20,19 @@
 	<string>1.1.12</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb246462332202376</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>246462332202376</string>
+	<key>FacebookDisplayName</key>
+	<string>Vocab</string>
 	<key>CFBundleVersion</key>
 	<string>34</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
