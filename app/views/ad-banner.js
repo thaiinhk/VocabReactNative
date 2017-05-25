@@ -13,11 +13,13 @@ export default class AdBanner extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      adType: Math.random() < 0.5 ? 'FBADS' : 'ADMOB',
+    };
   }
 
   render() {
-    if (this.state.showAdMob) {
+    if (this.state.adType === 'ADMOB') {
       return <AdmobCell />;
     }
 
@@ -25,7 +27,7 @@ export default class AdBanner extends React.Component {
       placementId={config.fbads[Platform.OS].banner}
       type="standard"
       onClick={() => console.log('click')}
-      onError={() => this.setState({ showAdMob: true })}
+      onError={() => this.setState({ adType: 'ADMOB' })}
     />);
   }
 }
