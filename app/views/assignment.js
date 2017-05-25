@@ -162,7 +162,7 @@ export default class AssignmentView extends React.Component {
     }
 
     // this.getNext();
-    timer.setTimeout('next', () => this.getNext(), 500);
+    timer.setTimeout(this, 'next', () => this.getNext(), 500);
   }
 
   popAndAd() {

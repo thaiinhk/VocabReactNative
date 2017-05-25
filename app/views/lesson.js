@@ -245,12 +245,14 @@ export default class LessonView extends React.Component {
 
           <ListView
             dataSource={this.state.dataSource}
-            renderRow={rowData => <TouchableHighlight style={styles.row} underlayColor="#F5F5F5" onPress={() => this.onPlaySound(rowData)}>
-              <View>
-                <Text style={styles.wordText}>{rowData.word}</Text>
-                {(rowData.translation || rowData.entranslation) && <Text style={styles.translationText}>{rowData.translation} {rowData.entranslation}</Text>}
-              </View>
-            </TouchableHighlight>}
+            renderRow={rowData => (
+              <TouchableHighlight style={styles.row} underlayColor="#F5F5F5" onPress={() => this.onPlaySound(rowData)}>
+                <View>
+                  <Text style={styles.wordText}>{rowData.word}</Text>
+                  {(rowData.translation || rowData.entranslation) && <Text style={styles.translationText}>{rowData.translation} {rowData.entranslation}</Text>}
+                </View>
+              </TouchableHighlight>
+            )}
           />
 
           <FbAds adsManager={adsManager} />

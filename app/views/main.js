@@ -21,6 +21,7 @@ import timer from 'react-native-timer';
 // Component
 import AdBanner from './ad-banner';
 import FbAds from './fbads';
+import Rating from './rating';
 
 import commonStyle from '../common-styles';
 import tracker from '../tracker';
@@ -131,6 +132,7 @@ export default class MainView extends Component {
           </View>
         </TouchableHighlight>
         {rowId % 20 === 1 && <FbAds adsManager={adsManager} />}
+        {rowId === '0' && <Rating />}
       </View>
     );
   }
@@ -172,7 +174,7 @@ export default class MainView extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData, secId, rowId) => this.renderRowView(rowData, rowId)}
-          renderFooter={() => <View>
+          renderFooter={() => (<View>
             <FbAds adsManager={adsManager} />
 
             <TouchableOpacity
@@ -186,7 +188,7 @@ export default class MainView extends Component {
                 <Text>Any feedback? Click here and tell us!</Text>
               </View>
             </TouchableOpacity>
-          </View>}
+          </View>)}
         />
         <AdBanner />
       </View>
