@@ -80,8 +80,6 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 @end
 
 /**
- @protocol
-
   The methods declared by the FBInterstitialAdDelegate protocol allow the adopting delegate to respond
  to messages from the FBInterstitialAd class and thus respond to operations such as whether the
  interstitial ad has been loaded, user has clicked or closed the interstitial.

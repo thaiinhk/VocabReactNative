@@ -23,14 +23,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- FBAdSize
+/// Represents the ad size.
+struct FBAdSize {
+    CGSize size;
+};
 
-  Represents the ad size.
- */
-typedef struct FBAdSize {
-  CGSize size;
-} FBAdSize;
+/// Represents the ad size.
+typedef struct FBAdSize FBAdSize;
 
 /**
   DEPRECATED - Represents the fixed banner ad size - 320pt by 50pt.

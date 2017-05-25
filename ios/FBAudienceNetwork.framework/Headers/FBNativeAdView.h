@@ -26,14 +26,17 @@ NS_ASSUME_NONNULL_BEGIN
 @class FBNativeAdViewAttributes;
 
 /**
- @enum FBNativeAdViewType enum
-  Determines the type of native ad template. Different views are created
+ Determines the type of native ad template. Different views are created
  for different values of FBNativeAdViewType
  */
 typedef NS_ENUM(NSInteger, FBNativeAdViewType) {
+    /// Fixed height view, 100 points (banner equivalent)
     FBNativeAdViewTypeGenericHeight100 = 1,
+    /// Fixed height view, 120 points (banner equivalent)
     FBNativeAdViewTypeGenericHeight120,
+    /// Fixed height view, 300 points
     FBNativeAdViewTypeGenericHeight300,
+    /// Fixed height view, 400 points
     FBNativeAdViewTypeGenericHeight400,
 };
 

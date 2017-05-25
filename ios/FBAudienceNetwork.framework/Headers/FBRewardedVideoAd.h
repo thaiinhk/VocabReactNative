@@ -118,8 +118,6 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 @end
 
 /**
- @protocol
-
   The methods declared by the FBRewardedVideoAdDelegate protocol allow the adopting delegate to respond
  to messages from the FBRewardedVideoAd class and thus respond to operations such as whether the ad has
  been loaded, the person has clicked the ad or closed video/end card.
@@ -185,7 +183,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 
  - Parameter rewardedVideoAd: An FBRewardedVideoAd object sending the message.
  */
-- (void)rewardedVideoAdServerSuccess:(FBRewardedVideoAd *)rewardedVideoAd;
+- (void)rewardedVideoAdServerRewardDidSucceed:(FBRewardedVideoAd *)rewardedVideoAd;
 
 /**
   Sent if server call to publisher's reward endpoint did not return HTTP status code 200
@@ -193,7 +191,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 
  - Parameter rewardedVideoAd: An FBRewardedVideoAd object sending the message.
  */
-- (void)rewardedVideoAdServerFailed:(FBRewardedVideoAd *)rewardedVideoAd;
+- (void)rewardedVideoAdServerRewardDidFail:(FBRewardedVideoAd *)rewardedVideoAd;
 
 @end
 

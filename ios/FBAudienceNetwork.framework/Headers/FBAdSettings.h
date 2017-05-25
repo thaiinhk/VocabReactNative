@@ -27,21 +27,59 @@ NS_ASSUME_NONNULL_BEGIN
  */
 FB_EXPORT NSString * const FBAudienceNetworkErrorDomain;
 
+/**
+ Audience Network SDK logging levels
+ */
 typedef NS_ENUM(NSInteger, FBAdLogLevel) {
+    /// No logging
     FBAdLogLevelNone,
+    /// Notifications
     FBAdLogLevelNotification,
+    /// Errors only
     FBAdLogLevelError,
+    /// Warnings only
     FBAdLogLevelWarning,
+    /// Standard log level
     FBAdLogLevelLog,
+    /// Debug logging
     FBAdLogLevelDebug,
+    /// Log everything (verbose)
     FBAdLogLevelVerbose
 };
 
+/**
+ Determines what method is used for rendering FBMediaView content
+ */
 typedef NS_ENUM(NSInteger, FBMediaViewRenderingMethod) {
+    /// Automatic selection of rendering method
     FBMediaViewRenderingMethodDefault,
+    /// Force Metal rendering (only use for devices with support)
     FBMediaViewRenderingMethodMetal,
+    /// Force OpenGL rendering
     FBMediaViewRenderingMethodOpenGL,
+    /// Software fallback
     FBMediaViewRenderingMethodSoftware
+};
+
+/**
+ Test Ad type to be injected when test mode is on
+ */
+typedef NS_ENUM(NSInteger, FBAdTestAdType) {
+    // No specific ad type to be set.
+    // This will return a random ad type when test mode is on.
+    FBAdTestAdType_Default,
+    // 16x9 image ad with app install CTA option
+    FBAdTestAdType_Img_16_9_App_Install,
+    // 16x9 image ad with link CTA option
+    FBAdTestAdType_Img_16_9_Link,
+    // nHD video 46 sec ad with app install CTA option
+    FBAdTestAdType_Vid_nHD_46s_App_Install,
+    // nHD video 46 sec ad with link CTA option
+    FBAdTestAdType_Vid_nHD_46s_Link,
+    // carousel ad with square image and app install CTA option
+    FBAdTestAdType_Carousel_Img_Square_App_Install,
+    // carousel ad with square image and link CTA option
+    FBAdTestAdType_Carousel_Img_Square_Link
 };
 
 /**
@@ -49,6 +87,10 @@ typedef NS_ENUM(NSInteger, FBMediaViewRenderingMethod) {
  */
 FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 @interface FBAdSettings : NSObject
+
+// When test mode is on, setting a non default value for testAdType will
+// request the specified type of ad.
+@property (class, nonatomic, assign) FBAdTestAdType testAdType;
 
 /**
   Returns test mode on/off.
@@ -96,8 +138,6 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 
  - Parameter isChildDirected: Indicates whether you would like your ad control to be treated as child-directed
 
-
-
  Note that you may have other legal obligations under the Children's Online Privacy Protection Act (COPPA).
  Please review the FTC's guidance and consult with your own legal counsel.
  */
@@ -113,11 +153,9 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 /**
   Gets the url prefix to use when making ad requests.
 
-
-
  This method should never be used in production.
  */
-+ (NSString *)urlPrefix;
++ (nullable NSString *)urlPrefix;
 
 /**
   Sets the url prefix to use when making ad requests.
@@ -126,7 +164,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 
  This method should never be used in production.
  */
-+ (void)setUrlPrefix:(NSString *) urlPrefix;
++ (void)setUrlPrefix:(nullable NSString *) urlPrefix;
 
 /**
   Gets the current SDK logging level

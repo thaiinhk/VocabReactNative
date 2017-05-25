@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
   Additional functionality on top of FBNativeAdsManager to assist in using native ads within a UICollectionView. This class contains a mechanism to map indexPaths to native ads in a stable manner as well as helpers which assist in doing the math to include ads at a regular interval within a collection view.
  */
-FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
+FB_CLASS_EXPORT
 @interface FBNativeAdCollectionViewAdProvider : NSObject
 
 /**

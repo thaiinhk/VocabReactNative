@@ -60,7 +60,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 /*
   The view controller to present the ad choices info from. If nil, the top view controller is used.
  */
-@property (nonatomic, weak, readwrite, nullable) UIViewController *viewController;
+@property (nonatomic, weak, readwrite, null_resettable) UIViewController *viewController;
 
 /**
   Initialize this view with a given native ad. Configuration is pulled from the native ad.
@@ -87,8 +87,8 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  - Parameter attributes: Attributes to configure look and feel.
  */
 - (instancetype)initWithViewController:(nullable UIViewController *)viewController
-                         adChoicesIcon:(FBAdImage *)adChoicesIcon
-                      adChoicesLinkURL:(NSURL *)adChoicesLinkURL
+                         adChoicesIcon:(nullable FBAdImage *)adChoicesIcon
+                      adChoicesLinkURL:(nullable NSURL *)adChoicesLinkURL
                             attributes:(nullable FBNativeAdViewAttributes *)attributes;
 
 /**
@@ -101,8 +101,8 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  - Parameter expandable: Controls whether view defaults to expanded or not, see property documentation
  */
 - (instancetype)initWithViewController:(nullable UIViewController *)viewController
-                         adChoicesIcon:(FBAdImage *)adChoicesIcon
-                      adChoicesLinkURL:(NSURL *)adChoicesLinkURL
+                         adChoicesIcon:(nullable FBAdImage *)adChoicesIcon
+                      adChoicesLinkURL:(nullable NSURL *)adChoicesLinkURL
                             attributes:(nullable FBNativeAdViewAttributes *)attributes
                             expandable:(BOOL)expandable;
 
@@ -117,8 +117,8 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  - Parameter expandable: Controls whether view defaults to expanded or not, see property documentation
  */
 - (instancetype)initWithViewController:(nullable UIViewController *)viewController
-                         adChoicesIcon:(FBAdImage *)adChoicesIcon
-                      adChoicesLinkURL:(NSURL *)adChoicesLinkURL
+                         adChoicesIcon:(nullable FBAdImage *)adChoicesIcon
+                      adChoicesLinkURL:(nullable NSURL *)adChoicesLinkURL
                          adChoicesText:(nullable NSString*)adChoicesText
                             attributes:(nullable FBNativeAdViewAttributes *)attributes
                             expandable:(BOOL)expandable NS_DESIGNATED_INITIALIZER;

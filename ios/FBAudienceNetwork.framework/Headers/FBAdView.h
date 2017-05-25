@@ -82,8 +82,6 @@ FB_CLASS_EXPORT
 @end
 
 /**
- @protocol
-
   The methods declared by the FBAdViewDelegate protocol allow the adopting delegate to respond
  to messages from the FBAdView class and thus respond to operations such as whether the ad has
  been loaded, the person has clicked the ad.

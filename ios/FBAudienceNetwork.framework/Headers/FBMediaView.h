@@ -58,7 +58,7 @@ FB_CLASS_EXPORT
 @property (nonatomic, assign, getter=isAutoplayEnabled) BOOL autoplayEnabled;
 
 /**
- The aspect ratio of the media view visual content. Returns a CGFloat ranging from 0.0 to 1.0. Returns 0.0 if no ad is currently loaded.
+ The aspect ratio of the media view visual content. Returns a positive CGFloat, or 0.0 if no ad is currently loaded.
  */
 @property (nonatomic, assign, readonly) CGFloat aspectRatio;
 
@@ -78,8 +78,6 @@ FB_CLASS_EXPORT
 @end
 
 /**
- @protocol
-
   The methods declared by the FBMediaViewDelegate protocol allow the adopting delegate to respond to messages from the FBMediaView class and thus respond to operations such as whether the media content has been loaded.
  */
 @protocol FBMediaViewDelegate <NSObject>
