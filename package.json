@@ -19,6 +19,7 @@
     "react-native-admob": "^1.1.5",
     "react-native-animatable": "^1.1.0",
     "react-native-device-info": "^0.9.6",
+    "react-native-fabric": "^0.4.1",
     "react-native-fbads": "^4.2.0",
     "react-native-flip-card": "^3.4.0",
     "react-native-google-analytics-bridge": "^5.0.1",

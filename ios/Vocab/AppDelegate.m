@@ -10,6 +10,9 @@
 #import "AppDelegate.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
@@ -41,6 +44,8 @@
 
   self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
                                                          appId:@"a413b839-d62f-4f04-a4bd-c7b073cde801"];
+
+  [Fabric with:@[[Crashlytics class]]];
 
   return YES;
 }

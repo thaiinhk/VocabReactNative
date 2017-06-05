@@ -29,12 +29,26 @@
 			</array>
 		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>34</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>ba90a9cfaac47e081b32f911ff611a6722de57c8</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>FacebookAppID</key>
 	<string>246462332202376</string>
 	<key>FacebookDisplayName</key>
 	<string>Vocab</string>
-	<key>CFBundleVersion</key>
-	<string>34</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
