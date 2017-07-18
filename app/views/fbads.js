@@ -21,11 +21,16 @@ const styles = StyleSheet.create({
     borderBottomColor: '#CCCCCC',
     backgroundColor: 'white',
   },
+  iconAction: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   icon: {
     width: 50,
     height: 50,
     borderRadius: 10,
     overflow: 'hidden',
+    marginTop: 5,
   },
   button: {
     backgroundColor: '#4CAF50',
@@ -34,72 +39,55 @@ const styles = StyleSheet.create({
   },
   action: {
     color: 'white',
-    fontSize: 10,
+  },
+  textBlock: {
+    flex: 1,
+    padding: 8,
   },
   title: {
     fontWeight: 'bold',
     fontSize: 14,
   },
   subtitle: {
-    marginTop: 10,
-    fontSize: 14,
-    lineHeight: 20,
+    fontSize: 13,
+    fontStyle: 'italic',
+    lineHeight: 28,
   },
   description: {
     fontSize: 12,
     opacity: 0.8,
   },
+  adChoices: {
+    width: 14,
+    height: 14,
+  },
 });
 
-class FbAds extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isHide: false,
-    };
-  }
-
-  render() {
-    if (this.state.isHide) {
-      return null;
-    }
-
-    return (
-      <View style={styles.container}>
-        {!this.props.nativeAd.icon && (
-          <View style={styles.button}>
-            <Text style={styles.action}>{this.props.nativeAd.callToActionText}</Text>
-          </View>
-        )}
-        <View style={{ flex: 1, padding: 8 }}>
-          <Text style={styles.title}>{this.props.nativeAd.title}</Text>
-          {this.props.nativeAd.subtitle && (
-            <Text style={styles.subtitle}>{this.props.nativeAd.subtitle}</Text>
-          )}
-          {/* this.props.nativeAd.description && (
-            <Text style={styles.description}>{this.props.nativeAd.description}</Text>
-          ) */}
+const FbNativeAd = withNativeAd(({ nativeAd }) => (
+  <View style={styles.container}>
+    {nativeAd.icon && (
+      <View style={styles.iconAction}>
+        {nativeAd.icon && <Image style={styles.icon} source={{ uri: nativeAd.icon }} />}
+        <View style={styles.button}>
+          <Text style={styles.action}>{nativeAd.callToActionText}</Text>
         </View>
-        {this.props.nativeAd.icon && (
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Image style={styles.icon} source={{ uri: this.props.nativeAd.icon }} />
-            <View style={styles.button}>
-              <Text style={styles.action}>{this.props.nativeAd.callToActionText}</Text>
-            </View>
-          </View>
-        )}
       </View>
-    );
-  }
-}
+    )}
+    <View style={styles.textBlock}>
+      <Text style={styles.title}>{nativeAd.title}</Text>
+      <Text style={styles.description}>{'Sponsored Ad'}</Text>
+      {nativeAd.subtitle && (
+        <Text style={styles.subtitle}>{nativeAd.subtitle}</Text>
+      )}
+      {nativeAd.description && (
+        <Text style={styles.description}>{nativeAd.description}</Text>
+      )}
+    </View>
+    <Image source={require('./../../assets/AdChoices.png')} style={styles.adChoices} />
+    {/* <TouchableOpacity style={{ position: 'absolute', top: 5, right: 5, backgroundColor: '#E0E0E0' }} onPress={() => this.setState({ isFbAdsHided: true })} >
+      <Icon name="close" size={14} color="#424242" />
+    </TouchableOpacity> */}
+  </View>
+));
 
-export default withNativeAd(FbAds);
-
-FbAds.propTypes = {
-  nativeAd: React.PropTypes.object,
-};
-
-FbAds.defaultProps = {
-  nativeAd: {},
-};
+export default FbNativeAd;

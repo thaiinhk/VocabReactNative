@@ -184,8 +184,8 @@ export default class MainView extends Component {
               }}
             >
               <View style={[styles.row, { backgroundColor: '#C8E6C9' }]}>
-                <Text>還有其他想要的嗎？跟我們說說吧！</Text>
-                <Text>Any feedback? Click here and tell us!</Text>
+                <Text>任何意見我們都會聆聽。跟我們說說吧！</Text>
+                <Text>Any suggestions? Click here and tell us!</Text>
               </View>
             </TouchableOpacity>
           </View>)}

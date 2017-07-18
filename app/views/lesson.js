@@ -259,7 +259,7 @@ export default class LessonView extends React.Component {
         </ScrollView>
         <AdBanner />
 
-        <ActionButton buttonColor="#4CAF50">
+        <ActionButton buttonColor="#4CAF50" offsetX={10} offsetY={55}>
           <ActionButton.Item
             buttonColor="#9B59B6"
             title="Listening test／聽力"
