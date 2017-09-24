@@ -153,7 +153,7 @@ export default class LessonView extends React.Component {
   }
 
   popAndAd() {
-    if (Math.random() > 0.9) {
+    if (Math.random() > 0.95) {
       InterstitialAdManager.showAd(config.fbads[Platform.OS].interstital)
         .then((didClick) => {
           console.log('Facebook Interstitial Ad', didClick);

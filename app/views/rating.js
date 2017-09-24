@@ -77,7 +77,7 @@ export default class Rating extends React.Component {
       }
     });
 
-    timer.setTimeout(this, 'rating', () => this.setState({ isRatingShow: true }), 5 * 60 * 1000);
+    timer.setTimeout(this, 'rating', () => this.setState({ isRatingShow: true }), 4 * 60 * 1000);
   }
 
   componentWillUnmount() {
@@ -109,7 +109,7 @@ export default class Rating extends React.Component {
     if (this.state.isRatingShow && !this.state.isRatingGiven) {
       return (<Animatable.View style={styles.container} animation="fadeIn">
         <Icon name="thumb-up" size={28} color="#616161" />
-        <Text style={{ fontSize: 12, lineHeight: 30 }}>{'喜歡我們的應用程序嗎？給我們5顆星吧'}</Text>
+        <Text style={{ fontSize: 12, lineHeight: 30 }}>{'喜歡我們的應用程序嗎？給 5 顆星鼓勵我們吧'}</Text>
         <Text style={{ fontSize: 12, lineHeight: 20 }}>{'Please give us 5 stars if you like this application'}</Text>
         <StarRating
           starSize={32}

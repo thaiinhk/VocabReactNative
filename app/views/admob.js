@@ -14,7 +14,7 @@ import { config } from '../config';
 
 const styles = StyleSheet.create({
   container: {
-    height: 50,
+    // height: 50,
   },
 });
 
@@ -22,7 +22,9 @@ export default class AdmobCell extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      isReceived: false,
+    };
   }
 
   componentDidMount() {
@@ -37,8 +39,16 @@ export default class AdmobCell extends React.Component {
 
   render() {
     return (
-      <View style={[styles.container, { margin: this.props.margin }]}>
-        <AdMobBanner key={this.state.adRefresh} bannerSize={this.props.bannerSize} adUnitID={config.admob[Platform.OS].banner} />
+      <View style={[styles.container, { height: this.state.isReceived ? 50 : 0, margin: this.props.margin }]}>
+        <AdMobBanner
+          key={this.state.adRefresh}
+          bannerSize={this.props.bannerSize}
+          adUnitID={config.admob[Platform.OS].banner}
+          adViewDidReceiveAd={() => {
+            console.log('Ads received');
+            this.setState({ isReceived: true });
+          }}
+        />
       </View>
     );
   }
